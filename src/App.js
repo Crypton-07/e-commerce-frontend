@@ -4,9 +4,9 @@ import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Cart } from "./features/cart/Cart";
 import CartPages from "./pages/CartPages";
 import CheckoutPage from "./pages/CheckoutPage";
+import ProductPage from "./pages/ProductPage";
 
 const appRouter = createBrowserRouter([
   {
@@ -28,6 +28,10 @@ const appRouter = createBrowserRouter([
   {
     path: "/checkout",
     element: <CheckoutPage />,
+  },
+  {
+    path: "/productDetail",
+    element: <ProductPage />,
   },
 ]);
 

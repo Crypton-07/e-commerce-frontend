@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/no-redundant-roles */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
@@ -31,6 +32,26 @@ const products = [
   },
   // More products...
 ];
+const address = [
+  {
+    id: 1107,
+    name: "John Doe",
+    street: "123 Main St",
+    city: "New York",
+    Pincode: 10001,
+    state: "NY",
+    phone: 123456,
+  },
+  {
+    id: 1404,
+    name: "Jane Smith",
+    street: "456 Elm St",
+    city: "Los Angeles",
+    Pincode: 90001,
+    state: "CA",
+    phone: 6789012,
+  },
+];
 
 const CheckoutPage = () => {
   const [open, setOpen] = useState(true);
@@ -42,7 +63,7 @@ const CheckoutPage = () => {
           <form className="bg-white px-4 py-2">
             <div>
               <div className="border-b border-gray-900/10 pb-10">
-                <h2 className="text-base font-semibold leading-7 text-gray-900">
+                <h2 className="text-2xl tracking-[0.020em] font-semibold leading-7 text-gray-900">
                   Personal Information
                 </h2>
                 <p className="mt-1 text-sm leading-6 text-gray-600">
@@ -215,7 +236,75 @@ const CheckoutPage = () => {
                 </div>
               </div>
             </div>
+            {/* cancel and save */}
+            <div className="py-4 flex items-center justify-end gap-x-3">
+              <button
+                type="button"
+                className="text-sm bg-gray-200 rounded-md shadow-sm px-4 py-2 font-semibold leading-6 text-gray-900"
+              >
+                Reset
+              </button>
+              <button
+                type="submit"
+                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 capitalize"
+              >
+                Add address
+              </button>
+            </div>
+            {/* select address */}
             <div className="mt-1 space-y-8">
+              <fieldset>
+                <legend className="text-sm font-semibold leading-6 text-gray-900">
+                  Select Address
+                </legend>
+                <p className="mt-1 text-sm leading-6 text-gray-600">
+                  Kindly choose the address.
+                </p>
+                <div className="mt-2 space-y-6 border-2 border-solid border-gray-200 rounded-sm">
+                  <ul role="list" className="divide-y divide-gray-100">
+                    {address.map((address) => (
+                      <li
+                        key={address.id}
+                        className="flex items-center  gap-x-6 py-4 px-3 border-b border-b-gray-200"
+                      >
+                        <input
+                          id={address.id}
+                          name="address"
+                          type="radio"
+                          className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                        />
+                        <div className="min-w-0 flex-auto">
+                          <p className="text-sm font-semibold leading-6 text-gray-900">
+                            {address.name}
+                          </p>
+                          <p className="text-sm leading-6 text-gray-900">
+                            Phone No: {address.phone}
+                          </p>
+                          <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                            Pincode : {address.Pincode}
+                          </p>
+                        </div>
+
+                        <div className="hidden shrink-0 w-32 sm:flex sm:flex-col sm:items-start">
+                          <p className="text-sm leading-6 text-gray-900">
+                            Street : {address.street}
+                          </p>
+                          <p className="text-sm leading-6 text-gray-900">
+                            City : {address.city}
+                          </p>
+                          <p className="text-sm leading-6 text-gray-900">
+                            State : {address.state}
+                          </p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </fieldset>
+            </div>
+
+            {/* payment method section */}
+            <div className="mt-1.5 space-y-8">
               <fieldset>
                 <legend className="text-sm font-semibold leading-6 text-gray-900">
                   Payment options
@@ -254,21 +343,6 @@ const CheckoutPage = () => {
                   </div>
                 </div>
               </fieldset>
-            </div>
-
-            <div className="py-4 flex items-center justify-end gap-x-6">
-              <button
-                type="button"
-                className="text-sm font-semibold leading-6 text-gray-900"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Save
-              </button>
             </div>
           </form>
         </div>
@@ -345,9 +419,9 @@ const CheckoutPage = () => {
               <div className="mt-6">
                 <a
                   href="#"
-                  className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                  className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 active:scale-90 transition ease-linear duration-100"
                 >
-                  Checkout
+                  Pay Now
                 </a>
               </div>
               <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
