@@ -9,6 +9,7 @@ import {
   increment,
   incrementAsync,
   selectAllProduct,
+  selectTotalCount,
 } from "../productListSlice";
 
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
@@ -28,6 +29,7 @@ import {
 import { Link } from "react-router-dom";
 import { Bars } from "react-loader-spinner";
 import Login from "../../auth/components/Login";
+import { ITEM_PER_PAGE } from "../../../constants/constant";
 // import { product } from "../../../constants/constant";
 
 const sortOptions = [
@@ -141,14 +143,15 @@ function classNames(...classes) {
 export function ProductList() {
   const dispatch = useDispatch();
   const product = useSelector(selectAllProduct);
+  const totalItemCount = useSelector(selectTotalCount); //? Will get "X-total-coount" from HTTP response header
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [filterProduct, setFilterProduct] = useState({});
   const [sortProduct, setsortProduct] = useState({});
+  const [page, setPage] = useState(1);
 
   const handleFilter = (e, section, option) => {
     //TODO : On actual serer it will support multiple category
     const newFilterProduct = { ...filterProduct };
-    // console.log(newFilterProduct);
     if (e.target.checked) {
       if (newFilterProduct[section.id]) {
         newFilterProduct[section.id].push(option.value);
@@ -172,13 +175,21 @@ export function ProductList() {
     setsortProduct(newSortProduct);
     // dispatch(fetchProductsByFilterAsync(newSortProduct));
   };
+
+  const handlePagination = (page) => {
+    // console.log(e.target.value);
+    // console.log(page);
+    setPage(page);
+  };
   useEffect(() => {
     //? Here we have used fetchAllProductsAsync to fetch all products. we are using this because initially I want to show loader. We can optimize this using
     //? dispatch(fetchProductsByFilterAsync(filterProduct)). Because it will call default url to fetch all products. we are just appending the querystring default url ==> "http://localhost:8080/products?" + queryString
-    dispatch(fetchProductsByFilterAsync({ filterProduct, sortProduct }));
-  }, [dispatch, filterProduct, sortProduct]);
-  // console.log(product);
-  return product.length === 0 ? (
+    const pagination = { _page: page, _per_page: ITEM_PER_PAGE };
+    dispatch(
+      fetchProductsByFilterAsync({ filterProduct, sortProduct, pagination })
+    );
+  }, [dispatch, filterProduct, sortProduct, page]);
+  return !product ? (
     <div className="absolute top-[49%] left-[46%] w-96 z-10">
       <Bars
         height="70"
@@ -286,7 +297,12 @@ export function ProductList() {
               </div>
             </section>
             {/* pagination and filter */}
-            <Pagination />
+            <Pagination
+              handlePagination={handlePagination}
+              page={page}
+              setPage={setPage}
+              totalItemCount={totalItemCount}
+            />
           </main>
         </div>
       </div>
@@ -529,7 +545,7 @@ const ProductGrid = ({ product }) => {
   );
 };
 
-const Pagination = () => {
+const Pagination = ({ handlePagination, page, setPage, totalItemCount }) => {
   return (
     <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
       <div className="flex flex-1 justify-between sm:hidden">
@@ -549,9 +565,17 @@ const Pagination = () => {
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
           <p className="text-sm text-gray-700">
-            Showing <span className="font-medium">1</span> to{" "}
-            <span className="font-medium">10</span> of{" "}
-            <span className="font-medium">97</span> results
+            Showing{" "}
+            <span className="font-medium">
+              {(page - 1) * ITEM_PER_PAGE + 1}{" "}
+            </span>
+            to{" "}
+            <span className="font-medium">
+              {page * ITEM_PER_PAGE > totalItemCount
+                ? totalItemCount
+                : page * ITEM_PER_PAGE}
+            </span>{" "}
+            of <span className="font-medium">{totalItemCount}</span> results
           </p>
         </div>
         <div>
@@ -559,37 +583,28 @@ const Pagination = () => {
             className="isolate inline-flex -space-x-px rounded-md shadow-sm"
             aria-label="Pagination"
           >
-            <a
-              href="#"
-              className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
-            >
+            <a className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
               <span className="sr-only">Previous</span>
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
             </a>
             {/* Current: "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0" */}
-            <a
-              href="#"
-              aria-current="page"
-              className="relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              1
-            </a>
-            <a
-              href="#"
-              className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
-            >
-              2
-            </a>
-            <a
-              href="#"
-              className="relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex"
-            >
-              3
-            </a>
-            <a
-              href="#"
-              className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
-            >
+            {Array.from({
+              length: Math.ceil(totalItemCount / ITEM_PER_PAGE),
+            }).map((el, index) => (
+              <div
+                key={index}
+                aria-current="page"
+                className={`relative z-10 inline-flex items-center cursor-pointer ${
+                  index + 1 === page
+                    ? " bg-indigo-600 text-white"
+                    : " text-gray-800 border-t border-b border-gray-300"
+                } px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
+                onClick={(e) => handlePagination(index + 1)}
+              >
+                {index + 1}
+              </div>
+            ))}
+            <a className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
               <span className="sr-only">Next</span>
               <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
             </a>

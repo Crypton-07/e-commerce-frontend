@@ -11,14 +11,17 @@ export function fetchAllProducts() {
   });
 }
 
-export function fetchProductByFilter(filter, sort) {
+export function fetchProductByFilter(filter, sort, pagination) {
   //? filter = {"category": "smartphone"}
+  //? sortby = {"sort": "price"}
+  //? Pagination = {"page" : 1 , "limit": 10}
   //TODO : Will have to make dynamic filter, currently works for individual category
   // console.log(filter);
+  console.log(pagination);
   let queryString = "";
   for (let key in filter) {
     const categoryValues = filter[key];
-    console.log(categoryValues);
+    // console.log(categoryValues);
     if (categoryValues.length) {
       const lastCategoryValue = categoryValues[categoryValues.length - 1];
       queryString += `${key}=${lastCategoryValue}&`;
@@ -27,13 +30,16 @@ export function fetchProductByFilter(filter, sort) {
   for (let key in sort) {
     queryString += `${key}=${sort[key]}&`;
   }
+  for (let key in pagination) {
+    queryString += `${key}=${pagination[key]}&`;
+  }
   return new Promise(async (resolve) => {
     const response = await fetch(
       "http://localhost:8080/products?" + queryString
     );
     const data = await response.json();
-    resolve({ data });
-    // console.log(data);
+    const totalItemCount = await response.headers.get("X-Total-Count");
+    resolve({ data: { product: data, totalItemCount: totalItemCount } });
   });
 }
 // export function fetchProductBySorting(sort) {
