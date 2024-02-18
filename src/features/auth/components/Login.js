@@ -1,10 +1,22 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Navigate } from "react-router-dom";
+import { checkUserAync, selectLoggedInUser, userErrorInfo } from "../authSlice";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const user = useSelector(selectLoggedInUser);
+  const authError = useSelector(userErrorInfo);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   return (
     <>
+      {user && <Navigate to={"/"} replace={true} />}
       {/*
         This example requires updating your template:
 
@@ -26,7 +38,16 @@ const Login = () => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form
+            autoComplete="off"
+            className="space-y-6"
+            noValidate
+            onSubmit={handleSubmit((data) => {
+              dispatch(
+                checkUserAync({ email: data?.email, password: data?.password })
+              );
+            })}
+          >
             <div>
               <label
                 htmlFor="email"
@@ -36,12 +57,22 @@ const Login = () => {
               </label>
               <div className="mt-2">
                 <input
+                  autoComplete="new-password"
                   id="email"
-                  name="email"
-                  type="email"
-                  required
+                  {...register("email", {
+                    required: "Email is required",
+                    pattern: {
+                      value: /^\S+@\S+\.\S+$/,
+                      message: "Email is not valid",
+                    },
+                  })}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
+                {errors.email && (
+                  <span className=" font-medium text-sm text-red-400">
+                    {errors.email.message}
+                  </span>
+                )}
               </div>
             </div>
 
@@ -64,13 +95,29 @@ const Login = () => {
               </div>
               <div className="mt-2">
                 <input
+                  autoComplete="new-password"
                   id="password"
-                  name="password"
                   type="password"
-                  hidden
-                  required
+                  {...register("password", {
+                    required: "Password is required",
+                    pattern: {
+                      value:
+                        /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{6,}$/,
+                      message: "Password is not valid",
+                    },
+                  })}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
+                {errors?.password && (
+                  <span className=" font-medium text-sm text-red-400">
+                    {errors?.password?.message}
+                  </span>
+                )}
+                {authError && (
+                  <span className=" font-medium text-sm text-red-400">
+                    {authError?.message}
+                  </span>
+                )}
               </div>
             </div>
 
@@ -85,7 +132,7 @@ const Login = () => {
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?
+            Not a member?{" "}
             <Link
               to={"/signup"}
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"

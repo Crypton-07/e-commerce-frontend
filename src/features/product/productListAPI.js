@@ -10,6 +10,36 @@ export function fetchAllProducts() {
     // console.log(data);
   });
 }
+export function fetchProductsById(id) {
+  return new Promise(async (resolve) => {
+    //TODO TO display the loader we are using set time out so that it fetch the product after 3 sec
+    setTimeout(async () => {
+      const response = await fetch("http://localhost:8080/products?id=" + id);
+      const data = await response.json();
+      resolve({ data });
+    }, 3000);
+    // console.log(data);
+  });
+}
+
+export function fetchAllCategories() {
+  return new Promise(async (resolve) => {
+    const response = await fetch("http://localhost:8080/categories");
+    const data = await response.json();
+    resolve({ data });
+
+    // console.log(data);
+  });
+}
+export function fetchAllBrands() {
+  return new Promise(async (resolve) => {
+    const response = await fetch("http://localhost:8080/brands");
+    const data = await response.json();
+    resolve({ data });
+
+    // console.log(data);
+  });
+}
 
 export function fetchProductByFilter(filter, sort, pagination) {
   //? filter = {"category": "smartphone"}
@@ -17,7 +47,6 @@ export function fetchProductByFilter(filter, sort, pagination) {
   //? Pagination = {"page" : 1 , "limit": 10}
   //TODO : Will have to make dynamic filter, currently works for individual category
   // console.log(filter);
-  console.log(pagination);
   let queryString = "";
   for (let key in filter) {
     const categoryValues = filter[key];

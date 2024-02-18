@@ -7,11 +7,16 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import CartPages from "./pages/CartPages";
 import CheckoutPage from "./pages/CheckoutPage";
 import ProductPage from "./pages/ProductPage";
+import Protected from "./features/auth/components/Protected";
 
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: (
+      <Protected>
+        <Home />
+      </Protected>
+    ),
   },
   {
     path: "/login",
@@ -23,15 +28,27 @@ const appRouter = createBrowserRouter([
   },
   {
     path: "/cart",
-    element: <CartPages />,
+    element: (
+      <Protected>
+        <CartPages />
+      </Protected>
+    ),
   },
   {
     path: "/checkout",
-    element: <CheckoutPage />,
+    element: (
+      <Protected>
+        <CheckoutPage />
+      </Protected>
+    ),
   },
   {
-    path: "/productDetail",
-    element: <ProductPage />,
+    path: "/productDetail/:id",
+    element: (
+      <Protected>
+        <ProductPage />
+      </Protected>
+    ),
   },
 ]);
 
