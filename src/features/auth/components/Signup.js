@@ -3,7 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
-import { createUserAync, selectLoggedInUser } from "../authSlice";
+import { createUserAsync, selectLoggedInUser } from "../authSlice";
 
 const Signup = () => {
   const {
@@ -42,7 +42,11 @@ const Signup = () => {
             className="space-y-6"
             onSubmit={handleSubmit((data) => {
               dispatch(
-                createUserAync({ email: data?.email, password: data?.password })
+                createUserAsync({
+                  email: data?.email,
+                  password: data?.password,
+                  address: [],
+                })
               );
             })}
           >

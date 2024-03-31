@@ -2,22 +2,28 @@
 export function fetchAllProducts() {
   return new Promise(async (resolve) => {
     //TODO TO display the loader we are using set time out so that it fetch the product after 3 sec
-    setTimeout(async () => {
+    const timer = setTimeout(async () => {
       const response = await fetch("http://localhost:8080/products");
       const data = await response.json();
       resolve({ data });
     }, 3000);
     // console.log(data);
+    return () => {
+      clearTimeout(timer);
+    };
   });
 }
 export function fetchProductsById(id) {
   return new Promise(async (resolve) => {
     //TODO TO display the loader we are using set time out so that it fetch the product after 3 sec
-    setTimeout(async () => {
+    const timer = setTimeout(async () => {
       const response = await fetch("http://localhost:8080/products?id=" + id);
       const data = await response.json();
       resolve({ data });
-    }, 3000);
+    }, 2000);
+    return () => {
+      clearTimeout(timer);
+    };
     // console.log(data);
   });
 }
@@ -67,8 +73,7 @@ export function fetchProductByFilter(filter, sort, pagination) {
       "http://localhost:8080/products?" + queryString
     );
     const data = await response.json();
-    const totalItemCount = await response.headers.get("X-Total-Count");
-    resolve({ data: { product: data, totalItemCount: totalItemCount } });
+    resolve({ data: { product: data } });
   });
 }
 // export function fetchProductBySorting(sort) {

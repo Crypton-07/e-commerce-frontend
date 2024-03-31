@@ -3,7 +3,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
-import { checkUserAync, selectLoggedInUser, userErrorInfo } from "../authSlice";
+import {
+  checkUserAsync,
+  selectLoggedInUser,
+  userErrorInfo,
+} from "../authSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -44,7 +48,11 @@ const Login = () => {
             noValidate
             onSubmit={handleSubmit((data) => {
               dispatch(
-                checkUserAync({ email: data?.email, password: data?.password })
+                checkUserAsync({
+                  email: data?.email,
+                  password: data?.password,
+                  // address: [],
+                })
               );
             })}
           >

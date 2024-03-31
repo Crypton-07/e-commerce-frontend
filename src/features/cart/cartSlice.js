@@ -1,8 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchCount } from "./cartAPI";
+import {
+  addToCart,
+  deleteItem,
+  fetchItemsByUserID,
+  resetCart,
+  updateItem,
+} from "./cartAPI";
 
 const initialState = {
-  value: 0,
+  items: [],
   status: "idle",
 };
 
@@ -11,17 +17,50 @@ const initialState = {
 // will call the thunk with the `dispatch` function as the first argument. Async
 // code can then be executed and other actions can be dispatched. Thunks are
 // typically used to make async requests.
-export const incrementAsync = createAsyncThunk(
-  "counter/fetchCount",
-  async (amount) => {
-    const response = await fetchCount(amount);
+export const addToCartAsync = createAsyncThunk(
+  "cart/addToCart",
+  async (item) => {
+    const response = await addToCart(item);
     // The value we return becomes the `fulfilled` action payload
     return response.data;
   }
 );
 
-export const counterSlice = createSlice({
-  name: "counter",
+export const updateItemAsync = createAsyncThunk(
+  "cart/updateItem",
+  async (update) => {
+    const response = await updateItem(update);
+    // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  }
+);
+export const deleteItemAsync = createAsyncThunk(
+  "cart/deleteItem",
+  async (itemId) => {
+    const response = await deleteItem(itemId);
+    // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  }
+);
+export const fetchItemsByUserIdAsync = createAsyncThunk(
+  "cart/fetchItemsByUserID",
+  async (userId) => {
+    const response = await fetchItemsByUserID(userId);
+    // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  }
+);
+export const resetCartAsync = createAsyncThunk(
+  "cart/resetCart",
+  async (userId) => {
+    const response = await resetCart(userId);
+    // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  }
+);
+
+export const cartSlice = createSlice({
+  name: "cart",
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
@@ -32,18 +71,52 @@ export const counterSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      .addCase(incrementAsync.pending, (state) => {
+      .addCase(addToCartAsync.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(incrementAsync.fulfilled, (state, action) => {
+      .addCase(addToCartAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.value += action.payload;
+        state.items.push(action.payload);
+      })
+      .addCase(fetchItemsByUserIdAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchItemsByUserIdAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.items = action.payload;
+      })
+      .addCase(updateItemAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateItemAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        const index = state.items.findIndex(
+          (item) => item.id === action.payload.id
+        );
+        state.items[index] = action.payload;
+      })
+      .addCase(deleteItemAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(deleteItemAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        const index = state.items.findIndex(
+          (item) => item.id === action.payload.id
+        );
+        state.items.splice(index, 1);
+      })
+      .addCase(resetCartAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(resetCartAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.items = [];
       });
   },
 });
 
-export const { increment } = counterSlice.actions;
+export const { increment } = cartSlice.actions;
 
-export const selectCount = (state) => state.counter.value;
+export const selectCartItems = (state) => state.cart.items;
 
-export default counterSlice.reducer;
+export default cartSlice.reducer;

@@ -7,6 +7,8 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectCartItems } from "../cart/cartSlice";
 
 const user = {
   name: "Tom Cook",
@@ -22,14 +24,15 @@ const navigation = [
   { name: "Reports", href: "#", current: false },
 ];
 const userNavigation = [
-  { name: "Your Profile", href: "/" },
-  { name: "Settings", link: "/" },
+  { name: "My Profile", link: "/profile" },
+  { name: "My Orders", link: "/order" },
   { name: "Sign out", link: "/login" },
 ];
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 const Navbar = ({ children }) => {
+  const items = useSelector(selectCartItems);
   return (
     <>
       <div className="min-h-full">
@@ -83,9 +86,11 @@ const Navbar = ({ children }) => {
                           />
                         </button>
                       </Link>
-                      <span className="inline-flex items-center rounded-md mb-6 -ml-3 z-10 bg-red-50 px-2 py-1 text-xs font-bold text-red-700 ring-1 ring-inset ring-red-600/10">
-                        4
-                      </span>
+                      {items?.length > 0 && (
+                        <span className="inline-flex items-center rounded-md mb-6 -ml-3 z-10 bg-red-50 px-2 py-1 text-xs font-bold text-red-700 ring-1 ring-inset ring-red-600/10">
+                          {items?.length}
+                        </span>
+                      )}
 
                       {/* Profile dropdown */}
                       <Menu as="div" className="relative ml-3">
@@ -114,7 +119,7 @@ const Navbar = ({ children }) => {
                               <Menu.Item key={item.name}>
                                 {({ active }) => (
                                   <Link
-                                    to={item.link}
+                                    to={item?.link}
                                     className={classNames(
                                       active ? "bg-gray-100" : "",
                                       "block px-4 py-2 text-sm text-gray-700 cursor-pointer"
@@ -200,20 +205,22 @@ const Navbar = ({ children }) => {
                         />
                       </button>
                     </Link>
-                    <span className="inline-flex items-center rounded-md bg-red-50 mb-6 z-10 -ml-3 px-2 py-1 text-xs font-bold text-red-700 ring-1 ring-inset ring-red-600/10">
-                      3
-                    </span>
+                    {items.length > 0 && (
+                      <span className="inline-flex items-center rounded-md bg-red-50 mb-6 z-10 -ml-3 px-2 py-1 text-xs font-bold text-red-700 ring-1 ring-inset ring-red-600/10">
+                        {items?.length}
+                      </span>
+                    )}
                   </div>
                   <div className="mt-3 space-y-1 px-2 cursor-pointer">
                     {userNavigation.map((item) => (
-                      <Disclosure.Button
-                        key={item.name}
-                        as="a"
-                        href={item.link}
-                        className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white cursor-pointer"
-                      >
-                        {item.name}
-                      </Disclosure.Button>
+                      <Link key={item.name} to={item.link}>
+                        <Disclosure.Button
+                          as="a"
+                          className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white cursor-pointer"
+                        >
+                          {item.name}
+                        </Disclosure.Button>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -230,7 +237,7 @@ const Navbar = ({ children }) => {
           </div>
         </header>
         <main>
-          <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl py-2 sm:px-6 lg:px-8">
             {children}
           </div>
         </main>
