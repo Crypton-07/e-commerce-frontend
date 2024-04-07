@@ -6,7 +6,7 @@ export function fetchAllProducts() {
       const response = await fetch("http://localhost:8080/products");
       const data = await response.json();
       resolve({ data });
-    }, 3000);
+    }, 2000);
     // console.log(data);
     return () => {
       clearTimeout(timer);
@@ -20,11 +20,38 @@ export function fetchProductsById(id) {
       const response = await fetch("http://localhost:8080/products?id=" + id);
       const data = await response.json();
       resolve({ data });
-    }, 2000);
+    }, 1000);
     return () => {
       clearTimeout(timer);
     };
     // console.log(data);
+  });
+}
+
+export function createProduct(newProduct) {
+  return new Promise(async (resolve) => {
+    const response = await fetch("http://localhost:8080/products/", {
+      method: "POST",
+      body: JSON.stringify(newProduct),
+      headers: { "content-type": "application/json" },
+    });
+    const data = await response.json();
+    resolve({ data });
+  });
+}
+
+export function updateProduct(update) {
+  return new Promise(async (resolve) => {
+    const response = await fetch(
+      "http://localhost:8080/products/" + update.id,
+      {
+        method: "PATCH",
+        body: JSON.stringify(update),
+        headers: { "content-type": "application/json" },
+      }
+    );
+    const data = await response.json();
+    resolve({ data });
   });
 }
 

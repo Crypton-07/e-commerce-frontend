@@ -62,6 +62,11 @@ export function UserProfile() {
           <p className="text-md font-medium px-8 py-2 tracking-wide">
             User's Email : {user.email}
           </p>
+          {user.role === "admin" && (
+            <p className="text-md font-medium px-8 py-2 tracking-wide capitalize">
+              Role : {user.role}
+            </p>
+          )}
 
           <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
             {/* <p className="mt-0.5 text-sm text-gray-500">Your Address</p> */}

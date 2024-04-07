@@ -3,16 +3,14 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  fetchAllProductsAsync,
   fetchByBrandsAsync,
   fetchByCategoriesAsync,
-  fetchProductBySortingAsync,
   fetchProductsByFilterAsync,
   selectAllBrands,
   selectAllCategories,
   selectAllProduct,
   selectTotalCount,
-} from "../productListSlice";
+} from "../../product/productListSlice";
 
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import {
@@ -49,7 +47,7 @@ const sortOptions = [
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-export function ProductList() {
+export function AdminProductList() {
   const dispatch = useDispatch();
   const product = useSelector(selectAllProduct);
   const totalItemCount = useSelector(selectTotalCount); //? Will get "X-total-coount" from HTTP response header
@@ -135,8 +133,8 @@ export function ProductList() {
       />
     </div>
   ) : (
-    <div className="overflow-auto scrollbar-hide">
-      <div className="bg-white">
+    <div>
+      <div className="bg-white overflow-auto scrollbar-hide">
         <div>
           {/* Mobile filter dialog */}
           <MobileFilter
@@ -427,51 +425,72 @@ const DesktopFilter = ({ handleFilter, filters }) => {
 const ProductGrid = ({ product }) => {
   return (
     <div className="lg:col-span-3">
+      <div className="flex justify-end">
+        <Link
+          to={"/admin/productForm"}
+          className="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-md hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 capitalize"
+        >
+          Add New Product
+        </Link>
+      </div>
       {/* this is product page */}
       <div className="bg-white">
         <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
           <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
             {product.map((product) => (
-              <Link key={product?.id} to={"/productDetail/" + product?.id}>
-                <div className="group relative">
-                  <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-                    <img
-                      src={product.thumbnail}
-                      alt={product.title}
-                      className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                    />
-                  </div>
-                  <div className="mt-4 flex justify-between">
-                    <div>
-                      <h3 className="text-sm text-gray-700">
-                        <div href={product.href}>
-                          <span
-                            aria-hidden="true"
-                            className="absolute inset-0"
-                          />
-                          {product.title}
-                        </div>
-                      </h3>
-                      <p className="mt-1 flex items-center text-sm text-gray-500">
-                        <StarIcon className="w-4 h-4 inline" />
-                        <span className="mx-1">{product.rating}</span>
-                      </p>
+              <div
+                key={product?.id}
+                // className="border-[1px] border-indigo-200 p-1 rounded-md"
+              >
+                <Link to={"/admin/productDetail/" + product?.id}>
+                  <div className="group relative">
+                    <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+                      <img
+                        src={product.thumbnail}
+                        alt={product.title}
+                        className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                      />
                     </div>
-                    <div>
-                      <p className="text-sm font-medium text-gray-900">
-                        ${" "}
-                        {Math.round(
-                          product.price *
-                            (1 - product?.discountPercentage / 100)
-                        )}
-                      </p>
-                      <p className="text-sm line-through   font-medium text-gray-400">
-                        $ {product.price}
-                      </p>
+                    <div className="mt-4 flex justify-between">
+                      <div>
+                        <h3 className="text-sm text-gray-700">
+                          <div href={product.href}>
+                            <span
+                              aria-hidden="true"
+                              className="absolute inset-0"
+                            />
+                            {product.title}
+                          </div>
+                        </h3>
+                        <p className="mt-1 flex items-center text-sm text-gray-500">
+                          <StarIcon className="w-4 h-4 inline" />
+                          <span className="mx-1">{product.rating}</span>
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">
+                          ${" "}
+                          {Math.round(
+                            product.price *
+                              (1 - product?.discountPercentage / 100)
+                          )}
+                        </p>
+                        <p className="text-sm line-through   font-medium text-gray-400">
+                          $ {product.price}
+                        </p>
+                      </div>
                     </div>
                   </div>
+                </Link>
+                <div className="flex items-center justify-center w-full">
+                  <Link
+                    to={`/admin/productForm/edit/${product.id}`}
+                    className=" w-full rounded-md my-2 bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 capitalize"
+                  >
+                    Edit Product
+                  </Link>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         </div>

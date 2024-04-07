@@ -13,9 +13,7 @@ export function Cart() {
   const totalAmount = items.reduce(
     (amount, item) =>
       Math.round(
-        item[0].price * item
-        .quantity * (1 - item
-          [0]?.discountPercentage / 100)
+        item[0].price * item.quantity * (1 - item[0]?.discountPercentage / 100)
       ) + amount,
     0
   );
@@ -33,7 +31,7 @@ export function Cart() {
     <>
       {!items.length && <Navigate to={"/"} replace={true} />}
       <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
-        <div className="mt-10 bg-white shadow-lg">
+        <div className=" bg-white shadow-lg">
           <h1 className="text-3xl font-bold px-8 py-4 tracking-wide">Cart</h1>
           <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
             <div className="flow-root">
@@ -56,15 +54,15 @@ export function Cart() {
                           </h3>
                           <p className="ml-4 flex flex-col gap-1">
                             <span>
-                              $
-                              {Math.round(
+                              {`$ ${Math.round(
                                 product[0].price *
                                   product.quantity *
                                   (1 - product[0]?.discountPercentage / 100)
                               )}
+                              `}
                             </span>
                             <span className="line-through text-gray-400">
-                              $ {product[0].price * product.quantity}
+                              {`$ ${product[0].price * product.quantity}`}
                             </span>
                           </p>
                         </div>
@@ -116,7 +114,9 @@ export function Cart() {
             </div>
             <div className="flex justify-between my-2 text-base font-medium text-gray-900">
               <p>Total items in cart</p>
-              <p>{totalItems} items</p>
+              <p>
+                {totalItems} {totalItems > 1 ? "items" : "item"}
+              </p>
             </div>
             <p className="mt-0.5 text-sm text-gray-500">
               Shipping and taxes calculated at checkout.

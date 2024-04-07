@@ -8,7 +8,7 @@ import {
   fetchProductByIdAsync,
   selectProductById,
   selectStatus,
-} from "../productListSlice";
+} from "../../product/productListSlice";
 import { useParams } from "react-router-dom";
 import { Bars } from "react-loader-spinner";
 import { addToCartAsync } from "../../cart/cartSlice";
@@ -44,7 +44,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function ProductDetails() {
+export default function AdminProductDetails() {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
   const product = useSelector(selectProductById);

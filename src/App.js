@@ -16,6 +16,12 @@ import OrderSuccess from "./pages/OrderSuccess";
 import UserOrderPage from "./pages/UserOrderPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import { fetchLoggedInUserAsync } from "./features/users/userSlice";
+import LogOut from "./features/auth/components/LogOut";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ProtectedAdmin from "./features/auth/components/ProtectedAdmin";
+import AdminHome from "./pages/AdminHome";
+import AdminProductPage from "./pages/AdminProductPage";
+import AdminProductForm from "./pages/AdminProductForm";
 
 const appRouter = createBrowserRouter([
   {
@@ -24,6 +30,30 @@ const appRouter = createBrowserRouter([
       <Protected>
         <Home />
       </Protected>
+    ),
+  },
+  {
+    path: "/admin",
+    element: (
+      <ProtectedAdmin>
+        <AdminHome />
+      </ProtectedAdmin>
+    ),
+  },
+  {
+    path: "/admin/productForm",
+    element: (
+      <ProtectedAdmin>
+        <AdminProductForm />
+      </ProtectedAdmin>
+    ),
+  },
+  {
+    path: "/admin/productForm/edit/:id",
+    element: (
+      <ProtectedAdmin>
+        <AdminProductForm />
+      </ProtectedAdmin>
     ),
   },
   {
@@ -59,6 +89,14 @@ const appRouter = createBrowserRouter([
     ),
   },
   {
+    path: "/admin/productDetail/:id",
+    element: (
+      <ProtectedAdmin>
+        <AdminProductPage />
+      </ProtectedAdmin>
+    ),
+  },
+  {
     path: "/orderSuccess/:id",
     element: (
       <Protected>
@@ -83,6 +121,18 @@ const appRouter = createBrowserRouter([
     ),
   },
   {
+    path: "/logout",
+    element: (
+      <Protected>
+        <LogOut />
+      </Protected>
+    ),
+  },
+  {
+    path: "/forgotpassword",
+    element: <ForgotPasswordPage />,
+  },
+  {
     path: "*",
     element: <PageNotFound />,
   },
@@ -98,7 +148,7 @@ function App() {
     }
   }, [dispatch, user]);
   return (
-    <div className="App">
+    <div className="App overflow-y-scroll scrollbar-hide">
       <RouterProvider router={appRouter} />
     </div>
   );
