@@ -85,15 +85,15 @@ export default function AdminProductDetails() {
             role="list"
             className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
           >
-            {product.breadcrumbs &&
-              product.breadcrumbs.map((breadcrumb) => (
-                <li key={breadcrumb.id}>
+            {product &&
+              product.map((product) => (
+                <li key={product.id}>
                   <div className="flex items-center">
                     <a
-                      href={breadcrumb.href}
+                      href={product.href}
                       className="mr-2 text-sm font-medium text-gray-900"
                     >
-                      {breadcrumb.name}
+                      {product.name}
                     </a>
                     <svg
                       width={16}

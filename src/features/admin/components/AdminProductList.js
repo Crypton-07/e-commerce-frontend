@@ -480,12 +480,17 @@ const ProductGrid = ({ product }) => {
                         </p>
                       </div>
                     </div>
+                    {product.deleted && (
+                      <div className="text-red-400 text-sm my-1 font-medium">
+                        <p>Product is deleted.</p>
+                      </div>
+                    )}
                   </div>
                 </Link>
                 <div className="flex items-center justify-center w-full">
                   <Link
                     to={`/admin/productForm/edit/${product.id}`}
-                    className=" w-full rounded-md my-2 bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 capitalize"
+                    className=" w-full rounded-md my-2 bg-indigo-600 px-3 py-2 text-base text-center font-semibold text-white shadow-md hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 capitalize"
                   >
                     Edit Product
                   </Link>

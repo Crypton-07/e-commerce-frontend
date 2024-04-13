@@ -4,7 +4,7 @@
       "id": "1",
       "title": "iPhone 9",
       "description": "An apple mobile which is nothing like apple",
-      "price": "549",
+      "price": 499,
       "discountPercentage": 12.96,
       "rating": 4.69,
       "stock": 94,
@@ -361,9 +361,9 @@
         "https://cdn.dummyjson.com/product-images/20/1.jpg",
         "https://cdn.dummyjson.com/product-images/20/2.jpg",
         "https://cdn.dummyjson.com/product-images/20/3.jpg",
-        "https://cdn.dummyjson.com/product-images/20/4.jpg",
         "https://cdn.dummyjson.com/product-images/20/thumbnail.jpg"
-      ]
+      ],
+      "deleted": false
     },
     {
       "id": "21",
@@ -2218,7 +2218,18 @@
       "id": "cf1b",
       "email": "admin@gmail.com",
       "password": "Admin@123",
-      "address": [],
+      "address": [
+        {
+          "name": "Vishesh",
+          "phone": "999999999999999",
+          "email": "visheshgmail.com",
+          "country": "India",
+          "address": "B1 Hirakunj",
+          "city": "Mumbai",
+          "state": "Maharashtra",
+          "pincode": "400084"
+        }
+      ],
       "role": "admin"
     }
   ],
@@ -2427,6 +2438,66 @@
         "name": "Vishesh",
         "phone": "123456789",
         "email": "vishesh@gmail.com",
+        "country": "India",
+        "address": "B1 Hirakunj",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "pincode": "400084"
+      },
+      "status": "pending"
+    },
+    {
+      "id": "2ef1",
+      "user": {
+        "id": "cf1b",
+        "email": "admin@gmail.com",
+        "password": "Admin@123",
+        "address": [
+          {
+            "name": "Vishesh",
+            "phone": "999999999999999",
+            "email": "visheshgmail.com",
+            "country": "India",
+            "address": "B1 Hirakunj",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pincode": "400084"
+          }
+        ],
+        "role": "admin"
+      },
+      "items": [
+        {
+          "0": {
+            "id": "7",
+            "title": "Samsung Galaxy Book",
+            "description": "Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched",
+            "price": 1499,
+            "discountPercentage": 4.15,
+            "rating": 4.25,
+            "stock": 50,
+            "brand": "Samsung",
+            "category": "laptops",
+            "thumbnail": "https://cdn.dummyjson.com/product-images/7/thumbnail.jpg",
+            "images": [
+              "https://cdn.dummyjson.com/product-images/7/1.jpg",
+              "https://cdn.dummyjson.com/product-images/7/2.jpg",
+              "https://cdn.dummyjson.com/product-images/7/3.jpg",
+              "https://cdn.dummyjson.com/product-images/7/thumbnail.jpg"
+            ]
+          },
+          "id": "8550",
+          "quantity": 1,
+          "user": "cf1b"
+        }
+      ],
+      "totalAmount": 1437,
+      "totalItems": 1,
+      "paymentMethod": "cash",
+      "selectAddress": {
+        "name": "Vishesh",
+        "phone": "999999999999999",
+        "email": "visheshgmail.com",
         "country": "India",
         "address": "B1 Hirakunj",
         "city": "Mumbai",
