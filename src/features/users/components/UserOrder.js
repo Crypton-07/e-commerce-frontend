@@ -3,12 +3,26 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoggedInUser } from "../../auth/authSlice";
 import { fetchLoggedInOrdersAsync, selectUserOrders } from "../userSlice";
+import { discountPrice } from "../../../constants/constant";
 
 const UserOrder = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
   const userOrders = useSelector(selectUserOrders);
-
+  const orderStatusColor = (status) => {
+    switch (status) {
+      case "pending":
+        return "bg-yellow-200 text-yellow-600";
+      case "dispatched":
+        return "bg-indigo-200 text-indigo-600";
+      case "delivered":
+        return "bg-green-200 text-green-600";
+      case "cancelled":
+        return "bg-red-200 text-red-600";
+      default:
+        return "bg-yellow-200 text-yellow-600";
+    }
+  };
   useEffect(() => {
     dispatch(fetchLoggedInOrdersAsync(user?.id));
   }, [dispatch, user]);
@@ -20,8 +34,15 @@ const UserOrder = () => {
             <h1 className="text-2xl font-medium px-8 py-2 tracking-wide">
               Order {`#${order?.id}`}
             </h1>
-            <p className="text-md font-medium px-8 py-2 tracking-wide text-red-700">
-              Order Status : {order?.status}
+            <p className={`text-md font-medium px-8 py-2 tracking-wide`}>
+              Order Status :
+              <span
+                className={`${orderStatusColor(
+                  order?.status
+                )} mx-1 capitalize py-1 px-2 rounded-md`}
+              >
+                {order?.status}
+              </span>
             </p>
             <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
               <div className="flow-root">
@@ -42,16 +63,11 @@ const UserOrder = () => {
                             <h3>
                               <a href={product[0]?.href}>{product[0].title}</a>
                             </h3>
-                            <p className="ml-4 flex flex-col gap-1">
+                            <p className="ml-4 text-md flex flex-col gap-1">
                               <span>
-                                $
-                                {Math.round(
-                                  product[0].price *
-                                    product.quantity *
-                                    (1 - product[0]?.discountPercentage / 100)
-                                )}
+                                ${discountPrice(product[0]) * product.quantity}
                               </span>
-                              <span className="line-through text-gray-400">
+                              <span className="line-through text-sm text-gray-400">
                                 $ {product[0].price * product.quantity}
                               </span>
                             </p>

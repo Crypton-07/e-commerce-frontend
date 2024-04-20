@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/no-redundant-roles */
@@ -5,16 +6,18 @@ import { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import { deleteItemAsync, selectCartItems, updateItemAsync } from "./cartSlice";
+import { discountPrice } from "../../constants/constant";
+import Modal from "../common/Modal";
+import { Bounce, ToastContainer, toast } from "react-toastify";
 
 export function Cart() {
   const items = useSelector(selectCartItems);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
+  const [showModal, setShowModal] = useState(null);
   const totalAmount = items.reduce(
     (amount, item) =>
-      Math.round(
-        item[0].price * item.quantity * (1 - item[0]?.discountPercentage / 100)
-      ) + amount,
+      Math.round(discountPrice(item[0]) * item.quantity) + amount,
     0
   );
   const totalItems = items.reduce((total, item) => item.quantity + total, 0);
@@ -23,127 +26,143 @@ export function Cart() {
     // console.log(e.target.value);
     dispatch(updateItemAsync({ ...product, quantity: +e.target.value }));
   };
-  const handleRemove = (e, id) => {
+  const handleRemove = (id) => {
     dispatch(deleteItemAsync(id));
+    toast.success("Item is deleted !", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
   };
 
   return (
     <>
       {!items.length && <Navigate to={"/"} replace={true} />}
-      <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
-        <div className=" bg-white shadow-lg">
-          <h1 className="text-3xl font-bold px-8 py-4 tracking-wide">Cart</h1>
-          <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-            <div className="flow-root">
-              <ul role="list" className="-my-6 divide-y divide-gray-200">
-                {items.map((product) => (
-                  <li key={product.id} className="flex py-6">
-                    <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                      <img
-                        src={product[0].thumbnail}
-                        alt={product[0].category}
-                        className="h-full w-full object-cover object-center"
-                      />
-                    </div>
+      <ToastContainer />
+      <div className=" bg-white shadow-lg">
+        <h1 className="text-3xl font-bold px-8 py-4 tracking-wide">Cart</h1>
+        <div className="border-t border-gray-200 px-4 sm:px-6">
+          <div className="flow-root">
+            <ul role="list" className="divide-y divide-gray-200">
+              {items.map((product) => (
+                <li key={product.id} className="flex py-6">
+                  <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                    <img
+                      src={product[0].thumbnail}
+                      alt={product[0].category}
+                      className="h-full w-full object-cover object-center"
+                    />
+                  </div>
 
-                    <div className="ml-4 flex flex-1 flex-col">
-                      <div>
-                        <div className="flex justify-between text-base font-medium text-gray-900">
-                          <h3>
-                            <a href={product[0]?.href}>{product[0].title}</a>
-                          </h3>
-                          <p className="ml-4 flex flex-col gap-1">
-                            <span>
-                              {`$ ${Math.round(
-                                product[0].price *
-                                  product.quantity *
-                                  (1 - product[0]?.discountPercentage / 100)
-                              )}
-                              `}
-                            </span>
-                            <span className="line-through text-gray-400">
-                              {`$ ${product[0].price * product.quantity}`}
-                            </span>
-                          </p>
-                        </div>
-                        <p className="mt-1 text-sm text-gray-500">
-                          {product[0].brand}
+                  <div className="ml-4 flex flex-1 flex-col">
+                    <div>
+                      <div className="flex justify-between text-base font-medium text-gray-900">
+                        <h3>
+                          <a href={product[0]?.href}>{product[0].title}</a>
+                        </h3>
+                        <p className="ml-4 flex flex-col gap-1">
+                          <span>
+                            $ {discountPrice(product[0]) * product.quantity}
+                          </span>
+                          <span className="line-through text-gray-400">
+                            {`$ ${product[0].price * product.quantity}`}
+                          </span>
                         </p>
                       </div>
-                      <div className="flex flex-1 items-end justify-between text-sm">
-                        <div className="text-gray-500 flex items-center">
-                          <label
-                            htmlFor="quantity"
-                            className="block text-sm font-medium leading-3 text-gray-900"
-                          >
-                            Qty
-                          </label>
-                          <select
-                            onChange={(e) => handleQuantity(e, product)}
-                            className="bg-white-50 w-[50px] ml-5 border border-gray-300 text-gray-900 text-sm rounded-md block p-1"
-                            value={product.quantity}
-                          >
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                          </select>
-                        </div>
+                      <p className="mt-1 text-sm text-gray-500">
+                        {product[0].brand}
+                      </p>
+                    </div>
+                    <div className="flex flex-1 items-end justify-between text-sm">
+                      <div className="text-gray-500 flex items-center">
+                        <label
+                          htmlFor="quantity"
+                          className="block text-sm font-medium leading-3 text-gray-900"
+                        >
+                          Qty
+                        </label>
+                        <select
+                          onChange={(e) => handleQuantity(e, product)}
+                          className="bg-white-50 w-[50px] ml-5 border border-gray-300 text-gray-900 text-sm rounded-md block p-1"
+                          value={product.quantity}
+                        >
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
 
-                        <div className="flex">
-                          <button
-                            type="button"
-                            className="font-medium text-indigo-600 hover:text-indigo-500"
-                            onClick={(e) => handleRemove(e, product.id)}
-                          >
-                            Remove
-                          </button>
-                        </div>
+                      <div className="flex">
+                        <Modal
+                          title={`Delete ${product[0].title} from cart ?`}
+                          message={
+                            "Are you sure to remove this item from your cart ?"
+                          }
+                          dangerOption={"Delete"}
+                          cancelOption={"Cancel"}
+                          dangerAction={() => handleRemove(product.id)}
+                          cancelAction={() => setShowModal(-1)}
+                          showModal={showModal === product.id}
+                        />
+                        <button
+                          type="button"
+                          className="font-medium text-indigo-600 hover:text-indigo-500"
+                          onClick={(e) => setShowModal(product.id)}
+                        >
+                          Remove
+                        </button>
                       </div>
                     </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
-          <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-            <div className="flex justify-between text-base font-medium text-gray-900">
-              <p>Subtotal</p>
-              <p>$ {totalAmount}</p>
-            </div>
-            <div className="flex justify-between my-2 text-base font-medium text-gray-900">
-              <p>Total items in cart</p>
-              <p>
-                {totalItems} {totalItems > 1 ? "items" : "item"}
-              </p>
-            </div>
-            <p className="mt-0.5 text-sm text-gray-500">
-              Shipping and taxes calculated at checkout.
+        </div>
+        <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+          <div className="flex justify-between text-base font-medium text-gray-900">
+            <p>Subtotal</p>
+            <p>$ {totalAmount}</p>
+          </div>
+          <div className="flex justify-between my-2 text-base font-medium text-gray-900">
+            <p>Total items in cart</p>
+            <p>
+              {totalItems} {totalItems > 1 ? "items" : "item"}
             </p>
-            <div className="mt-6">
-              <Link
-                to={"/checkout"}
-                className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 active:scale-90 transition ease-linear duration-100"
-              >
-                Checkout
+          </div>
+          <p className="mt-0.5 text-sm text-gray-500">
+            Shipping and taxes calculated at checkout.
+          </p>
+          <div className="mt-6">
+            <Link
+              to={"/checkout"}
+              className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 active:scale-90 transition ease-linear duration-100"
+            >
+              Checkout
+            </Link>
+          </div>
+          <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+            <p>
+              or{" "}
+              <Link to={"/"}>
+                <button
+                  type="button"
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                  onClick={() => setOpen(false)}
+                >
+                  Continue Shopping
+                  <span aria-hidden="true"> &rarr;</span>
+                </button>
               </Link>
-            </div>
-            <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
-              <p>
-                or{" "}
-                <Link to={"/"}>
-                  <button
-                    type="button"
-                    className="font-medium text-indigo-600 hover:text-indigo-500"
-                    onClick={() => setOpen(false)}
-                  >
-                    Continue Shopping
-                    <span aria-hidden="true"> &rarr;</span>
-                  </button>
-                </Link>
-              </p>
-            </div>
+            </p>
           </div>
         </div>
       </div>

@@ -11,9 +11,9 @@ import { useSelector } from "react-redux";
 import { selectCartItems } from "../cart/cartSlice";
 import { selectLoggedInUser } from "../auth/authSlice";
 const navigation = [
-  { name: "Dashboard", link: "#", user: true },
-  { name: "Team", link: "#", user: true },
-  { name: "Admin", link: "/admin", admin: true },
+  { name: "Products", link: "/", user: true },
+  { name: "Products", link: "/admin", admin: true },
+  { name: "Admin Order", link: "/admin/orderDetails", admin: true },
 ];
 const userNavigation = [
   { name: "My Profile", link: "/profile" },
@@ -38,8 +38,8 @@ const Navbar = ({ children }) => {
                     <Link to={"/"}>
                       <div className="flex-shrink-0">
                         <img
-                          className="h-8 w-8"
-                          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                          className="h-12 w-12"
+                          src="/shopping-bag_12580921.png"
                           alt="Your Company"
                         />
                       </div>
@@ -95,7 +95,7 @@ const Navbar = ({ children }) => {
                             <span className="sr-only">Open user menu</span>
                             <img
                               className="h-8 w-8 rounded-full"
-                              src={user?.imageUrl}
+                              src="/user.png"
                               alt=""
                             />
                           </Menu.Button>

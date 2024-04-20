@@ -48,8 +48,12 @@
       "category": "smartphones",
       "thumbnail": "https://cdn.dummyjson.com/product-images/3/thumbnail.jpg",
       "images": [
-        "https://cdn.dummyjson.com/product-images/3/1.jpg"
-      ]
+        "https://cdn.dummyjson.com/product-images/3/1.jpg",
+        "https://images.unsplash.com/photo-1695048065127-fbee942eed2e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGlwaG9uZSUyMDE1fGVufDB8fDB8fHww",
+        "https://images.unsplash.com/photo-1674763301490-78a9d9012e5a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8c2Ftc3VuZyUyMHMyMnxlbnwwfHwwfHx8MA%3D%3D",
+        "https://cdn.dummyjson.com/product-images/3/thumbnail.jpg"
+      ],
+      "deleted": false
     },
     {
       "id": "4",
@@ -332,36 +336,37 @@
       "id": "19",
       "title": "Skin Beauty Serum.",
       "description": "Product name: rorec collagen hyaluronic acid white face serum riceNet weight: 15 m",
-      "price": 46,
-      "discountPercentage": 10.68,
+      "price": null,
+      "discountPercentage": null,
       "rating": 4.42,
-      "stock": 54,
+      "stock": null,
       "brand": "ROREC White Rice",
       "category": "skincare",
       "thumbnail": "https://cdn.dummyjson.com/product-images/19/thumbnail.jpg",
       "images": [
-        "https://cdn.dummyjson.com/product-images/19/1.jpg",
-        "https://cdn.dummyjson.com/product-images/19/2.jpg",
-        "https://cdn.dummyjson.com/product-images/19/3.png",
-        "https://cdn.dummyjson.com/product-images/19/thumbnail.jpg"
-      ]
+        null,
+        null,
+        null,
+        null
+      ],
+      "deleted": false
     },
     {
       "id": "20",
       "title": "Freckle Treatment Cream- 15gm",
       "description": "Fair & Clear is Pakistan's only pure Freckle cream which helpsfade Freckles, Darkspots and pigments. Mercury level is 0%, so there are no side effects.",
-      "price": 70,
-      "discountPercentage": 16.99,
+      "price": null,
+      "discountPercentage": null,
       "rating": 4.06,
-      "stock": 140,
+      "stock": null,
       "brand": "Fair & Clear",
       "category": "skincare",
       "thumbnail": "https://cdn.dummyjson.com/product-images/20/thumbnail.jpg",
       "images": [
-        "https://cdn.dummyjson.com/product-images/20/1.jpg",
-        "https://cdn.dummyjson.com/product-images/20/2.jpg",
-        "https://cdn.dummyjson.com/product-images/20/3.jpg",
-        "https://cdn.dummyjson.com/product-images/20/thumbnail.jpg"
+        null,
+        null,
+        null,
+        null
       ],
       "deleted": false
     },
@@ -1843,36 +1848,38 @@
       "title": "iphone 15",
       "brand": "Apple",
       "category": "smartphones",
-      "price": "899",
-      "discountPercentage": "10",
-      "stock": "8",
+      "price": 499,
+      "discountPercentage": 10,
+      "stock": 10,
       "thumbnail": "https://images.unsplash.com/photo-1695048132783-4b9f77bde5be?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGlwaG9uZSUyMDE1fGVufDB8fDB8fHww",
       "description": "Iphone 15",
       "rating": 4,
       "images": [
-        "https://images.unsplash.com/photo-1695048132790-baebe5b7e975?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aXBob25lJTIwMTV8ZW58MHx8MHx8fDA%3D",
-        "https://images.unsplash.com/photo-1695048132832-b41495f12eb4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGlwaG9uZSUyMDE1fGVufDB8fDB8fHww",
-        "https://images.unsplash.com/photo-1695048133021-be2def43f3b2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aXBob25lJTIwMTV8ZW58MHx8MHx8fDA%3D",
+        "https://images.unsplash.com/photo-1695048132783-4b9f77bde5be?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGlwaG9uZSUyMDE1fGVufDB8fDB8fHww",
+        "https://images.unsplash.com/photo-1695048132783-4b9f77bde5be?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGlwaG9uZSUyMDE1fGVufDB8fDB8fHww",
+        "https://images.unsplash.com/photo-1695048132783-4b9f77bde5be?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGlwaG9uZSUyMDE1fGVufDB8fDB8fHww",
         "https://images.unsplash.com/photo-1695048132783-4b9f77bde5be?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGlwaG9uZSUyMDE1fGVufDB8fDB8fHww"
-      ]
+      ],
+      "deleted": false
     },
     {
       "id": "2d29",
       "title": "iPhone 14",
       "brand": "Apple",
       "category": "smartphones",
-      "price": "799",
-      "discountPercentage": "10",
-      "stock": "19",
+      "price": 799,
+      "discountPercentage": 10,
+      "stock": 8,
       "thumbnail": "https://images.unsplash.com/photo-1677563277026-17a254ea02f7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aXBob25lJTIwMTR8ZW58MHx8MHx8fDA%3D",
       "description": "\nThe iPhone 14 is Apple's latest flagship smartphone, featuring a sleek design and advanced technology. With a stunning Super Retina XDR display, it offers vibrant colors and crisp visuals. Powered by the A16 Bionic chip, it delivers lightning-fast performance and efficient energy usage. Its enhanced camera system includes innovative features like improved low-light photography and advanced image stabilization. The iPhone 14 boasts 5G connectivity for faster download and streaming speeds. With enhanced security features and iOS 16, it provides a seamless and secure user experience. Additionally, its long-lasting battery life ensures all-day usage without compromise.",
       "rating": 4,
       "images": [
-        "https://images.unsplash.com/photo-1695578130391-929bdfff85d8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGlwaG9uZSUyMDE0fGVufDB8fDB8fHww",
-        "https://images.unsplash.com/photo-1695578130342-991b58f1ecb8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGlwaG9uZSUyMDE0fGVufDB8fDB8fHww",
-        "https://images.unsplash.com/photo-1695578130349-15e2dee7ca78?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fGlwaG9uZSUyMDE0fGVufDB8fDB8fHww",
+        "https://cdn.dummyjson.com/product-images/1/1.jpg",
+        "https://cdn.dummyjson.com/product-images/1/2.jpg",
+        "https://images.unsplash.com/photo-1705530292519-ec81f2ace70d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHNhbXN1bmclMjBnYWxheHklMjBzMjN8ZW58MHx8MHx8fDA%3D",
         "https://images.unsplash.com/photo-1677563277026-17a254ea02f7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aXBob25lJTIwMTR8ZW58MHx8MHx8fDA%3D"
-      ]
+      ],
+      "deleted": false
     }
   ],
   "categories": [
@@ -2233,7 +2240,31 @@
       "role": "admin"
     }
   ],
-  "cart": [],
+  "cart": [
+    {
+      "0": {
+        "id": "1",
+        "title": "iPhone 9",
+        "description": "An apple mobile which is nothing like apple",
+        "price": 499,
+        "discountPercentage": 12.96,
+        "rating": 4.69,
+        "stock": 94,
+        "brand": "Apple",
+        "category": "smartphones",
+        "thumbnail": "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg",
+        "images": [
+          "https://cdn.dummyjson.com/product-images/1/1.jpg",
+          "https://cdn.dummyjson.com/product-images/1/2.jpg",
+          "https://cdn.dummyjson.com/product-images/1/3.jpg",
+          "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg"
+        ]
+      },
+      "id": "6904",
+      "quantity": 1,
+      "user": "fac4"
+    }
+  ],
   "orders": [
     {
       "id": "31cf",
@@ -2303,7 +2334,7 @@
         "state": "Maharashtra",
         "pincode": "400084"
       },
-      "status": "pending"
+      "status": "dispatched"
     },
     {
       "id": "7fa1",
@@ -2373,7 +2404,7 @@
         "state": "Maharashtra",
         "pincode": "400084"
       },
-      "status": "pending"
+      "status": "delivered"
     },
     {
       "id": "c956",
@@ -2504,7 +2535,890 @@
         "state": "Maharashtra",
         "pincode": "400084"
       },
+      "status": "dispatched"
+    },
+    {
+      "id": "b686",
+      "user": {
+        "id": "cf1b",
+        "email": "admin@gmail.com",
+        "password": "Admin@123",
+        "address": [
+          {
+            "name": "Vishesh",
+            "phone": "999999999999999",
+            "email": "visheshgmail.com",
+            "country": "India",
+            "address": "B1 Hirakunj",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pincode": "400084"
+          }
+        ],
+        "role": "admin"
+      },
+      "items": [
+        {
+          "0": {
+            "id": "1",
+            "title": "iPhone 9",
+            "description": "An apple mobile which is nothing like apple",
+            "price": 499,
+            "discountPercentage": 12.96,
+            "rating": 4.69,
+            "stock": 94,
+            "brand": "Apple",
+            "category": "smartphones",
+            "thumbnail": "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg",
+            "images": [
+              "https://cdn.dummyjson.com/product-images/1/1.jpg",
+              "https://cdn.dummyjson.com/product-images/1/2.jpg",
+              "https://cdn.dummyjson.com/product-images/1/3.jpg",
+              "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg"
+            ]
+          },
+          "id": "6a57",
+          "quantity": 1,
+          "user": "cf1b"
+        }
+      ],
+      "totalAmount": 434,
+      "totalItems": 1,
+      "paymentMethod": "cash",
+      "selectAddress": {
+        "name": "Vishesh",
+        "phone": "999999999999999",
+        "email": "visheshgmail.com",
+        "country": "India",
+        "address": "B1 Hirakunj",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "pincode": "400084"
+      },
+      "status": "dispatched"
+    },
+    {
+      "id": "7b18",
+      "user": {
+        "id": "cf1b",
+        "email": "admin@gmail.com",
+        "password": "Admin@123",
+        "address": [
+          {
+            "name": "Vishesh",
+            "phone": "999999999999999",
+            "email": "visheshgmail.com",
+            "country": "India",
+            "address": "B1 Hirakunj",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pincode": "400084"
+          }
+        ],
+        "role": "admin"
+      },
+      "items": [
+        {
+          "0": {
+            "id": "1",
+            "title": "iPhone 9",
+            "description": "An apple mobile which is nothing like apple",
+            "price": 499,
+            "discountPercentage": 12.96,
+            "rating": 4.69,
+            "stock": 94,
+            "brand": "Apple",
+            "category": "smartphones",
+            "thumbnail": "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg",
+            "images": [
+              "https://cdn.dummyjson.com/product-images/1/1.jpg",
+              "https://cdn.dummyjson.com/product-images/1/2.jpg",
+              "https://cdn.dummyjson.com/product-images/1/3.jpg",
+              "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg"
+            ]
+          },
+          "id": "6a57",
+          "quantity": 1,
+          "user": "cf1b"
+        }
+      ],
+      "totalAmount": 434,
+      "totalItems": 1,
+      "paymentMethod": "cash",
+      "selectAddress": {
+        "name": "Vishesh",
+        "phone": "999999999999999",
+        "email": "visheshgmail.com",
+        "country": "India",
+        "address": "B1 Hirakunj",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "pincode": "400084"
+      },
+      "status": "dispatched"
+    },
+    {
+      "id": "1545",
+      "user": {
+        "id": "cf1b",
+        "email": "admin@gmail.com",
+        "password": "Admin@123",
+        "address": [
+          {
+            "name": "Vishesh",
+            "phone": "999999999999999",
+            "email": "visheshgmail.com",
+            "country": "India",
+            "address": "B1 Hirakunj",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pincode": "400084"
+          }
+        ],
+        "role": "admin"
+      },
+      "items": [
+        {
+          "0": {
+            "id": "6",
+            "title": "MacBook Pro",
+            "description": "MacBook Pro 2021 with mini-LED display may launch between September, November",
+            "price": 1749,
+            "discountPercentage": 11.02,
+            "rating": 4.57,
+            "stock": 83,
+            "brand": "Apple",
+            "category": "laptops",
+            "thumbnail": "https://cdn.dummyjson.com/product-images/6/thumbnail.png",
+            "images": [
+              "https://cdn.dummyjson.com/product-images/6/1.png",
+              "https://cdn.dummyjson.com/product-images/6/2.jpg",
+              "https://cdn.dummyjson.com/product-images/6/3.png",
+              "https://cdn.dummyjson.com/product-images/6/4.jpg"
+            ]
+          },
+          "id": "5f3b",
+          "quantity": 1,
+          "user": "cf1b"
+        }
+      ],
+      "totalAmount": 1556,
+      "totalItems": 1,
+      "paymentMethod": "cash",
+      "selectAddress": {
+        "name": "Vishesh",
+        "phone": "999999999999999",
+        "email": "visheshgmail.com",
+        "country": "India",
+        "address": "B1 Hirakunj",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "pincode": "400084"
+      },
+      "status": "dispatched"
+    },
+    {
+      "id": "687d",
+      "user": {
+        "id": "cf1b",
+        "email": "admin@gmail.com",
+        "password": "Admin@123",
+        "address": [
+          {
+            "name": "Vishesh",
+            "phone": "999999999999999",
+            "email": "visheshgmail.com",
+            "country": "India",
+            "address": "B1 Hirakunj",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pincode": "400084"
+          }
+        ],
+        "role": "admin"
+      },
+      "items": [
+        {
+          "0": {
+            "id": "6",
+            "title": "MacBook Pro",
+            "description": "MacBook Pro 2021 with mini-LED display may launch between September, November",
+            "price": 1749,
+            "discountPercentage": 11.02,
+            "rating": 4.57,
+            "stock": 83,
+            "brand": "Apple",
+            "category": "laptops",
+            "thumbnail": "https://cdn.dummyjson.com/product-images/6/thumbnail.png",
+            "images": [
+              "https://cdn.dummyjson.com/product-images/6/1.png",
+              "https://cdn.dummyjson.com/product-images/6/2.jpg",
+              "https://cdn.dummyjson.com/product-images/6/3.png",
+              "https://cdn.dummyjson.com/product-images/6/4.jpg"
+            ]
+          },
+          "id": "5f3b",
+          "quantity": 1,
+          "user": "cf1b"
+        }
+      ],
+      "totalAmount": 1556,
+      "totalItems": 1,
+      "paymentMethod": "cash",
+      "selectAddress": {
+        "name": "Vishesh",
+        "phone": "999999999999999",
+        "email": "visheshgmail.com",
+        "country": "India",
+        "address": "B1 Hirakunj",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "pincode": "400084"
+      },
       "status": "pending"
+    },
+    {
+      "id": "1ae7",
+      "user": {
+        "id": "cf1b",
+        "email": "admin@gmail.com",
+        "password": "Admin@123",
+        "address": [
+          {
+            "name": "Vishesh",
+            "phone": "999999999999999",
+            "email": "visheshgmail.com",
+            "country": "India",
+            "address": "B1 Hirakunj",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pincode": "400084"
+          }
+        ],
+        "role": "admin"
+      },
+      "items": [
+        {
+          "0": {
+            "id": "6",
+            "title": "MacBook Pro",
+            "description": "MacBook Pro 2021 with mini-LED display may launch between September, November",
+            "price": 1749,
+            "discountPercentage": 11.02,
+            "rating": 4.57,
+            "stock": 83,
+            "brand": "Apple",
+            "category": "laptops",
+            "thumbnail": "https://cdn.dummyjson.com/product-images/6/thumbnail.png",
+            "images": [
+              "https://cdn.dummyjson.com/product-images/6/1.png",
+              "https://cdn.dummyjson.com/product-images/6/2.jpg",
+              "https://cdn.dummyjson.com/product-images/6/3.png",
+              "https://cdn.dummyjson.com/product-images/6/4.jpg"
+            ]
+          },
+          "id": "5f3b",
+          "quantity": 1,
+          "user": "cf1b"
+        }
+      ],
+      "totalAmount": 1556,
+      "totalItems": 1,
+      "paymentMethod": "cash",
+      "selectAddress": {
+        "name": "Vishesh",
+        "phone": "999999999999999",
+        "email": "visheshgmail.com",
+        "country": "India",
+        "address": "B1 Hirakunj",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "pincode": "400084"
+      },
+      "status": "dispatched"
+    },
+    {
+      "id": "787e",
+      "user": {
+        "id": "cf1b",
+        "email": "admin@gmail.com",
+        "password": "Admin@123",
+        "address": [
+          {
+            "name": "Vishesh",
+            "phone": "999999999999999",
+            "email": "visheshgmail.com",
+            "country": "India",
+            "address": "B1 Hirakunj",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pincode": "400084"
+          }
+        ],
+        "role": "admin"
+      },
+      "items": [
+        {
+          "0": {
+            "id": "2",
+            "title": "iPhone X",
+            "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+            "price": "849",
+            "discountPercentage": 17.94,
+            "rating": 4.44,
+            "stock": 34,
+            "brand": "Apple",
+            "category": "smartphones",
+            "thumbnail": "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
+            "images": [
+              "https://cdn.dummyjson.com/product-images/2/1.jpg",
+              "https://cdn.dummyjson.com/product-images/2/2.jpg",
+              "https://cdn.dummyjson.com/product-images/2/3.jpg",
+              "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg"
+            ]
+          },
+          "id": "2950",
+          "quantity": 1,
+          "user": "cf1b"
+        }
+      ],
+      "totalAmount": 697,
+      "totalItems": 1,
+      "paymentMethod": "cash",
+      "selectAddress": {
+        "name": "Vishesh",
+        "phone": "999999999999999",
+        "email": "visheshgmail.com",
+        "country": "India",
+        "address": "B1 Hirakunj",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "pincode": "400084"
+      },
+      "status": "pending"
+    },
+    {
+      "id": "928a",
+      "user": {
+        "id": "cf1b",
+        "email": "admin@gmail.com",
+        "password": "Admin@123",
+        "address": [
+          {
+            "name": "Vishesh",
+            "phone": "999999999999999",
+            "email": "visheshgmail.com",
+            "country": "India",
+            "address": "B1 Hirakunj",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pincode": "400084"
+          }
+        ],
+        "role": "admin"
+      },
+      "items": [
+        {
+          "0": {
+            "id": "2",
+            "title": "iPhone X",
+            "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+            "price": "849",
+            "discountPercentage": 17.94,
+            "rating": 4.44,
+            "stock": 34,
+            "brand": "Apple",
+            "category": "smartphones",
+            "thumbnail": "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
+            "images": [
+              "https://cdn.dummyjson.com/product-images/2/1.jpg",
+              "https://cdn.dummyjson.com/product-images/2/2.jpg",
+              "https://cdn.dummyjson.com/product-images/2/3.jpg",
+              "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg"
+            ]
+          },
+          "id": "2950",
+          "quantity": 1,
+          "user": "cf1b"
+        }
+      ],
+      "totalAmount": 697,
+      "totalItems": 1,
+      "paymentMethod": "cash",
+      "selectAddress": {
+        "name": "Vishesh",
+        "phone": "999999999999999",
+        "email": "visheshgmail.com",
+        "country": "India",
+        "address": "B1 Hirakunj",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "pincode": "400084"
+      },
+      "status": "pending"
+    },
+    {
+      "id": "e3b5",
+      "user": {
+        "id": "cf1b",
+        "email": "admin@gmail.com",
+        "password": "Admin@123",
+        "address": [
+          {
+            "name": "Vishesh",
+            "phone": "999999999999999",
+            "email": "visheshgmail.com",
+            "country": "India",
+            "address": "B1 Hirakunj",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pincode": "400084"
+          }
+        ],
+        "role": "admin"
+      },
+      "items": [
+        {
+          "0": {
+            "id": "2",
+            "title": "iPhone X",
+            "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+            "price": "849",
+            "discountPercentage": 17.94,
+            "rating": 4.44,
+            "stock": 34,
+            "brand": "Apple",
+            "category": "smartphones",
+            "thumbnail": "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
+            "images": [
+              "https://cdn.dummyjson.com/product-images/2/1.jpg",
+              "https://cdn.dummyjson.com/product-images/2/2.jpg",
+              "https://cdn.dummyjson.com/product-images/2/3.jpg",
+              "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg"
+            ]
+          },
+          "id": "2950",
+          "quantity": 1,
+          "user": "cf1b"
+        }
+      ],
+      "totalAmount": 697,
+      "totalItems": 1,
+      "paymentMethod": "cash",
+      "selectAddress": {
+        "name": "Vishesh",
+        "phone": "999999999999999",
+        "email": "visheshgmail.com",
+        "country": "India",
+        "address": "B1 Hirakunj",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "pincode": "400084"
+      },
+      "status": "pending"
+    },
+    {
+      "id": "34bd",
+      "user": {
+        "id": "cf1b",
+        "email": "admin@gmail.com",
+        "password": "Admin@123",
+        "address": [
+          {
+            "name": "Vishesh",
+            "phone": "999999999999999",
+            "email": "visheshgmail.com",
+            "country": "India",
+            "address": "B1 Hirakunj",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pincode": "400084"
+          }
+        ],
+        "role": "admin"
+      },
+      "items": [
+        {
+          "0": {
+            "id": "7",
+            "title": "Samsung Galaxy Book",
+            "description": "Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched",
+            "price": 1499,
+            "discountPercentage": 4.15,
+            "rating": 4.25,
+            "stock": 50,
+            "brand": "Samsung",
+            "category": "laptops",
+            "thumbnail": "https://cdn.dummyjson.com/product-images/7/thumbnail.jpg",
+            "images": [
+              "https://cdn.dummyjson.com/product-images/7/1.jpg",
+              "https://cdn.dummyjson.com/product-images/7/2.jpg",
+              "https://cdn.dummyjson.com/product-images/7/3.jpg",
+              "https://cdn.dummyjson.com/product-images/7/thumbnail.jpg"
+            ]
+          },
+          "id": "5b91",
+          "quantity": 1,
+          "user": "cf1b"
+        }
+      ],
+      "totalAmount": 1437,
+      "totalItems": 1,
+      "paymentMethod": "cash",
+      "selectAddress": {
+        "name": "Vishesh",
+        "phone": "999999999999999",
+        "email": "visheshgmail.com",
+        "country": "India",
+        "address": "B1 Hirakunj",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "pincode": "400084"
+      },
+      "status": "delivered"
+    },
+    {
+      "id": "1e56",
+      "user": {
+        "id": "cf1b",
+        "email": "admin@gmail.com",
+        "password": "Admin@123",
+        "address": [
+          {
+            "name": "Vishesh",
+            "phone": "999999999999999",
+            "email": "visheshgmail.com",
+            "country": "India",
+            "address": "B1 Hirakunj",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pincode": "400084"
+          }
+        ],
+        "role": "admin"
+      },
+      "items": [
+        {
+          "0": {
+            "id": "2",
+            "title": "iPhone X",
+            "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+            "price": "849",
+            "discountPercentage": 17.94,
+            "rating": 4.44,
+            "stock": 34,
+            "brand": "Apple",
+            "category": "smartphones",
+            "thumbnail": "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
+            "images": [
+              "https://cdn.dummyjson.com/product-images/2/1.jpg",
+              "https://cdn.dummyjson.com/product-images/2/2.jpg",
+              "https://cdn.dummyjson.com/product-images/2/3.jpg",
+              "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg"
+            ]
+          },
+          "id": "dd03",
+          "quantity": 1,
+          "user": "cf1b"
+        }
+      ],
+      "totalAmount": 697,
+      "totalItems": 1,
+      "paymentMethod": "cash",
+      "selectAddress": {
+        "name": "Vishesh",
+        "phone": "999999999999999",
+        "email": "visheshgmail.com",
+        "country": "India",
+        "address": "B1 Hirakunj",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "pincode": "400084"
+      },
+      "status": "pending"
+    },
+    {
+      "id": "5d1c",
+      "user": {
+        "id": "cf1b",
+        "email": "admin@gmail.com",
+        "password": "Admin@123",
+        "address": [
+          {
+            "name": "Vishesh",
+            "phone": "999999999999999",
+            "email": "visheshgmail.com",
+            "country": "India",
+            "address": "B1 Hirakunj",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pincode": "400084"
+          }
+        ],
+        "role": "admin"
+      },
+      "items": [
+        {
+          "0": {
+            "id": "2",
+            "title": "iPhone X",
+            "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+            "price": "849",
+            "discountPercentage": 17.94,
+            "rating": 4.44,
+            "stock": 34,
+            "brand": "Apple",
+            "category": "smartphones",
+            "thumbnail": "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
+            "images": [
+              "https://cdn.dummyjson.com/product-images/2/1.jpg",
+              "https://cdn.dummyjson.com/product-images/2/2.jpg",
+              "https://cdn.dummyjson.com/product-images/2/3.jpg",
+              "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg"
+            ]
+          },
+          "id": "51a5",
+          "quantity": 1,
+          "user": "cf1b"
+        }
+      ],
+      "totalAmount": 697,
+      "totalItems": 1,
+      "paymentMethod": "cash",
+      "selectAddress": {
+        "name": "Vishesh",
+        "phone": "999999999999999",
+        "email": "visheshgmail.com",
+        "country": "India",
+        "address": "B1 Hirakunj",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "pincode": "400084"
+      },
+      "status": "pending"
+    },
+    {
+      "id": "edb0",
+      "user": {
+        "id": "cf1b",
+        "email": "admin@gmail.com",
+        "password": "Admin@123",
+        "address": [
+          {
+            "name": "Vishesh",
+            "phone": "999999999999999",
+            "email": "visheshgmail.com",
+            "country": "India",
+            "address": "B1 Hirakunj",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pincode": "400084"
+          }
+        ],
+        "role": "admin"
+      },
+      "items": [
+        {
+          "0": {
+            "id": "1",
+            "title": "iPhone 9",
+            "description": "An apple mobile which is nothing like apple",
+            "price": 499,
+            "discountPercentage": 12.96,
+            "rating": 4.69,
+            "stock": 94,
+            "brand": "Apple",
+            "category": "smartphones",
+            "thumbnail": "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg",
+            "images": [
+              "https://cdn.dummyjson.com/product-images/1/1.jpg",
+              "https://cdn.dummyjson.com/product-images/1/2.jpg",
+              "https://cdn.dummyjson.com/product-images/1/3.jpg",
+              "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg"
+            ]
+          },
+          "id": "2faa",
+          "quantity": 1,
+          "user": "cf1b"
+        }
+      ],
+      "totalAmount": 434,
+      "totalItems": 1,
+      "paymentMethod": "cash",
+      "selectAddress": {
+        "name": "Vishesh",
+        "phone": "999999999999999",
+        "email": "visheshgmail.com",
+        "country": "India",
+        "address": "B1 Hirakunj",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "pincode": "400084"
+      },
+      "status": "cancelled"
+    },
+    {
+      "id": "0a6c",
+      "user": {
+        "id": "fac4",
+        "email": "vishesh@gmail.com",
+        "password": "Abc@123",
+        "role": "user",
+        "address": [
+          {
+            "name": "Vishesh",
+            "phone": "123456789",
+            "email": "vishesh@gmail.com",
+            "country": "India",
+            "address": "B1 Hirakunj",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pincode": "400084"
+          },
+          {
+            "name": "Rishabh",
+            "phone": "1543234543",
+            "email": "rishabh@gmail.com",
+            "address": "Asalpha Metro",
+            "country": "India",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pincode": "400012"
+          }
+        ]
+      },
+      "items": [
+        {
+          "0": {
+            "id": "1",
+            "title": "iPhone 9",
+            "description": "An apple mobile which is nothing like apple",
+            "price": 499,
+            "discountPercentage": 12.96,
+            "rating": 4.69,
+            "stock": 94,
+            "brand": "Apple",
+            "category": "smartphones",
+            "thumbnail": "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg",
+            "images": [
+              "https://cdn.dummyjson.com/product-images/1/1.jpg",
+              "https://cdn.dummyjson.com/product-images/1/2.jpg",
+              "https://cdn.dummyjson.com/product-images/1/3.jpg",
+              "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg"
+            ]
+          },
+          "id": "35ec",
+          "quantity": 1,
+          "user": "fac4"
+        }
+      ],
+      "totalAmount": 434,
+      "totalItems": 1,
+      "paymentMethod": "cash",
+      "selectAddress": {
+        "name": "Rishabh",
+        "phone": "1543234543",
+        "email": "rishabh@gmail.com",
+        "address": "Asalpha Metro",
+        "country": "India",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "pincode": "400012"
+      },
+      "status": "cancelled"
+    },
+    {
+      "id": "25be",
+      "user": {
+        "id": "fac4",
+        "email": "vishesh@gmail.com",
+        "password": "Abc@123",
+        "role": "user",
+        "address": [
+          {
+            "name": "Vishesh",
+            "phone": "123456789",
+            "email": "vishesh@gmail.com",
+            "country": "India",
+            "address": "B1 Hirakunj",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pincode": "400084"
+          },
+          {
+            "name": "Rishabh",
+            "phone": "1543234543",
+            "email": "rishabh@gmail.com",
+            "address": "Asalpha Metro",
+            "country": "India",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pincode": "400012"
+          }
+        ]
+      },
+      "items": [
+        {
+          "0": {
+            "id": "1",
+            "title": "iPhone 9",
+            "description": "An apple mobile which is nothing like apple",
+            "price": 499,
+            "discountPercentage": 12.96,
+            "rating": 4.69,
+            "stock": 94,
+            "brand": "Apple",
+            "category": "smartphones",
+            "thumbnail": "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg",
+            "images": [
+              "https://cdn.dummyjson.com/product-images/1/1.jpg",
+              "https://cdn.dummyjson.com/product-images/1/2.jpg",
+              "https://cdn.dummyjson.com/product-images/1/3.jpg",
+              "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg"
+            ]
+          },
+          "id": "b777",
+          "quantity": 1,
+          "user": "fac4"
+        },
+        {
+          "0": {
+            "id": "2",
+            "title": "iPhone X",
+            "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+            "price": "849",
+            "discountPercentage": 17.94,
+            "rating": 4.44,
+            "stock": 34,
+            "brand": "Apple",
+            "category": "smartphones",
+            "thumbnail": "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
+            "images": [
+              "https://cdn.dummyjson.com/product-images/2/1.jpg",
+              "https://cdn.dummyjson.com/product-images/2/2.jpg",
+              "https://cdn.dummyjson.com/product-images/2/3.jpg",
+              "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg"
+            ]
+          },
+          "id": "dc99",
+          "quantity": 1,
+          "user": "fac4"
+        }
+      ],
+      "totalAmount": 1131,
+      "totalItems": 2,
+      "paymentMethod": "cash",
+      "selectAddress": {
+        "name": "Vishesh",
+        "phone": "123456789",
+        "email": "vishesh@gmail.com",
+        "country": "India",
+        "address": "B1 Hirakunj",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "pincode": "400084"
+      },
+      "status": "dispatched"
     }
   ]
 }

@@ -103,6 +103,8 @@ export function fetchProductByFilter(filter, sort, pagination) {
     resolve({ data: { product: data } });
   });
 }
+
+
 // export function fetchProductBySorting(sort) {
 //   //? sortby = {"sort": "price"}
 //   //TODO : Will have to make dynamic sorting, currently works for individual high to low or low to high

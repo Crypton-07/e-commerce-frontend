@@ -11,8 +11,11 @@ import {
 } from "../productListSlice";
 import { useParams } from "react-router-dom";
 import { Bars } from "react-loader-spinner";
-import { addToCartAsync } from "../../cart/cartSlice";
+import { addToCartAsync, selectCartItems } from "../../cart/cartSlice";
 import { selectLoggedInUser } from "../../auth/authSlice";
+import { discountPrice } from "../../../constants/constant";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+// import { useAlert } from "react-alert";
 
 const colors = [
   { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
@@ -47,18 +50,34 @@ function classNames(...classes) {
 export default function ProductDetails() {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
+  const cartItem = useSelector(selectCartItems);
   const product = useSelector(selectProductById);
   const status = useSelector(selectStatus);
   const user = useSelector(selectLoggedInUser);
-  // console.log(product.images[0]);
   const dispatch = useDispatch();
   const params = useParams();
+  // const alert = useAlert();
 
-  const handleClick = (e) => {
+  const handleAddToCart = (e) => {
     e.preventDefault();
-    const newItem = { ...product, quantity: 1, user: user?.id };
-    delete newItem["id"];
-    dispatch(addToCartAsync(newItem));
+    const index = cartItem.findIndex((item) => item[0].id === product[0].id);
+    if (index < 0) {
+      const newItem = { ...product, quantity: 1, user: user?.id };
+      delete newItem["id"];
+      dispatch(addToCartAsync(newItem));
+    } else {
+      toast.warn("Item is already added !", {
+        position: "top-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
   };
 
   useEffect(() => {
@@ -79,6 +98,7 @@ export default function ProductDetails() {
     </div>
   ) : (
     <div className="bg-white">
+      <ToastContainer />
       <div className="pt-6">
         <nav aria-label="Breadcrumb">
           <ol
@@ -173,8 +193,13 @@ export default function ProductDetails() {
           {/* Options */}
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
-            <p className="text-3xl tracking-tight text-gray-900">
-              {product[0].price}
+            <p className="flex items-center space-x-1 text-3xl tracking-tight text-gray-900">
+              <span>$</span>
+              <span>{discountPrice(product[0])}</span>
+            </p>
+            <p className="text-base mx-1 my-1 flex items-center space-x-1 line-through font-medium text-gray-400">
+              <span>$</span>
+              <span>{product[0]?.price}</span>
             </p>
 
             {/* Reviews */}
@@ -324,7 +349,7 @@ export default function ProductDetails() {
               </div>
 
               <button
-                onClick={(e) => handleClick(e)}
+                onClick={(e) => handleAddToCart(e)}
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 Add to bag

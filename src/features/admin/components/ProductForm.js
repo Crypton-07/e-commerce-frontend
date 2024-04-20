@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearSelectedProduct,
@@ -11,14 +11,18 @@ import {
 } from "../../product/productListSlice";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import Modal from "../../common/Modal";
 const ProductForm = () => {
   const brands = useSelector(selectAllBrands);
   const category = useSelector(selectAllCategories);
   const selectedProduct = useSelector(selectProductById);
+  console.log(selectedProduct);
   const dispatch = useDispatch();
   const params = useParams();
+  const [showModal, setShowModal] = useState(false);
+  const [modalOption, setModalOption] = useState(false);
   // console.log(selectedProduct);
-  // console.log(params);
+  console.log(params.id);
   const {
     register,
     handleSubmit,
@@ -31,7 +35,7 @@ const ProductForm = () => {
     const deleteProduct = { ...selectedProduct[0], deleted: true };
     // deleteProduct[0].delete = true;
     dispatch(updateProductsAsync(deleteProduct));
-    // reset();
+    reset();
   };
 
   useEffect(() => {
@@ -98,6 +102,11 @@ const ProductForm = () => {
               what you share.
             </p>
             {/* Product Information */}
+            {selectedProduct[0]?.deleted && (
+              <p className="text-red-500 font-medium mt-2">
+                This product is deleted
+              </p>
+            )}
             <div className="mt-10 border-b border-gray-900/10 pb-12">
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-2">
@@ -390,7 +399,10 @@ const ProductForm = () => {
           </button>
           {selectedProduct && (
             <div
-              onClick={handleDelete}
+              onClick={(e) => {
+                e.preventDefault();
+                setShowModal(true);
+              }}
               className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 cursor-pointer"
               // onClick={(e) => e.preventDefault()}
             >
@@ -400,12 +412,20 @@ const ProductForm = () => {
           <button
             type="submit"
             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            // onClick={(e) => e.preventDefault()}
           >
             Save
           </button>
         </div>
       </form>
+      <Modal
+        title={selectedProduct?.[0]?.title}
+        message={"Are you sure to delete this product ?"}
+        dangerOption={"Delete"}
+        cancelOption={"Cancel"}
+        dangerAction={handleDelete}
+        cancelAction={() => setShowModal(false)}
+        showModal={showModal}
+      />
     </>
   );
 };

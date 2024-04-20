@@ -22,8 +22,25 @@ import ProtectedAdmin from "./features/auth/components/ProtectedAdmin";
 import AdminHome from "./pages/AdminHome";
 import AdminProductPage from "./pages/AdminProductPage";
 import AdminProductForm from "./pages/AdminProductForm";
+import AdminOrderPage from "./pages/AdminOrderPage";
+import { Provider as AlertProvider, positions } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
+
+const options = {
+  // you can also just use 'bottom center'
+  position: positions.TOP_RIGHT,
+  timeout: 3000,
+};
 
 const appRouter = createBrowserRouter([
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/signup",
+    element: <SignupPage />,
+  },
   {
     path: "/",
     element: (
@@ -32,11 +49,20 @@ const appRouter = createBrowserRouter([
       </Protected>
     ),
   },
+
   {
     path: "/admin",
     element: (
       <ProtectedAdmin>
         <AdminHome />
+      </ProtectedAdmin>
+    ),
+  },
+  {
+    path: "/admin/productDetail/:id",
+    element: (
+      <ProtectedAdmin>
+        <AdminProductPage />
       </ProtectedAdmin>
     ),
   },
@@ -57,13 +83,14 @@ const appRouter = createBrowserRouter([
     ),
   },
   {
-    path: "/login",
-    element: <LoginPage />,
+    path: "/admin/orderDetails",
+    element: (
+      <ProtectedAdmin>
+        <AdminOrderPage />
+      </ProtectedAdmin>
+    ),
   },
-  {
-    path: "/signup",
-    element: <SignupPage />,
-  },
+
   {
     path: "/cart",
     element: (
@@ -86,14 +113,6 @@ const appRouter = createBrowserRouter([
       <Protected>
         <ProductPage />
       </Protected>
-    ),
-  },
-  {
-    path: "/admin/productDetail/:id",
-    element: (
-      <ProtectedAdmin>
-        <AdminProductPage />
-      </ProtectedAdmin>
     ),
   },
   {
@@ -149,7 +168,9 @@ function App() {
   }, [dispatch, user]);
   return (
     <div className="App overflow-y-scroll scrollbar-hide">
-      <RouterProvider router={appRouter} />
+      <AlertProvider template={AlertTemplate} {...options}>
+        <RouterProvider router={appRouter} />
+      </AlertProvider>
     </div>
   );
 }

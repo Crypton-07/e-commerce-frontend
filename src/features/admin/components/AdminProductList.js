@@ -485,6 +485,11 @@ const ProductGrid = ({ product }) => {
                         <p>Product is deleted.</p>
                       </div>
                     )}
+                    {product.stock <= 0 && (
+                      <div className="text-red-400 text-sm my-1 font-medium">
+                        <p>Out of stock</p>
+                      </div>
+                    )}
                   </div>
                 </Link>
                 <div className="flex items-center justify-center w-full">

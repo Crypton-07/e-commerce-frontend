@@ -10,6 +10,8 @@
     "@tailwindcss/forms": "^0.5.7",
     "cra-template-redux": "2.0.0",
     "react": "^18.2.0",
+    "react-alert": "^7.0.3",
+    "react-alert-template-basic": "^1.0.2",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.50.1",
     "react-loader-spinner": "^6.1.6",
