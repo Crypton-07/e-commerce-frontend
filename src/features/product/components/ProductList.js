@@ -38,11 +38,11 @@ import { Pagination } from "../../common/Pagination";
 
 const sortOptions = [
   { name: "Default", _sort: "", order: "desc", current: false },
-  { name: "Best Rating", _sort: "-rating", order: "desc", current: false },
+  { name: "Best Rating", _sort: "rating", order: "desc", current: false },
   { name: "Price: Low to High", _sort: "price", order: "asc", current: false },
   {
     name: "Price: High to Low",
-    _sort: "-price",
+    _sort: "price",
     order: "desc",
     current: false,
   },
@@ -95,8 +95,8 @@ export function ProductList() {
     // console.log(section.id, option.value);
   };
 
-  const handleSorting = (e, sort) => {
-    const newSortProduct = { _sort: sort };
+  const handleSorting = (e, sort, order) => {
+    const newSortProduct = { _sort: sort, _order: order };
     // console.log({ sortProduct });
     setsortProduct(newSortProduct);
     // dispatch(fetchProductsByFilterAsync(newSortProduct));
