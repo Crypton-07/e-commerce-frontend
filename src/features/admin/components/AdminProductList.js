@@ -34,11 +34,11 @@ import { ITEM_PER_PAGE } from "../../../constants/constant";
 
 const sortOptions = [
   { name: "Default", _sort: "", order: "desc", current: false },
-  { name: "Best Rating", _sort: "-rating", order: "desc", current: false },
+  { name: "Best Rating", _sort: "rating", order: "desc", current: false },
   { name: "Price: Low to High", _sort: "price", order: "asc", current: false },
   {
     name: "Price: High to Low",
-    _sort: "-price",
+    _sort: "price",
     order: "desc",
     current: false,
   },
@@ -90,8 +90,8 @@ export function AdminProductList() {
     // console.log(section.id, option.value);
   };
 
-  const handleSorting = (e, sort) => {
-    const newSortProduct = { _sort: sort };
+  const handleSorting = (e, sort, order) => {
+    const newSortProduct = { _sort: sort, _order: order };
     // console.log({ sortProduct });
     setsortProduct(newSortProduct);
     // dispatch(fetchProductsByFilterAsync(newSortProduct));
@@ -107,7 +107,12 @@ export function AdminProductList() {
     //? dispatch(fetchProductsByFilterAsync(filterProduct)). Because it will call default url to fetch all products. we are just appending the querystring default url ==> "http://localhost:8080/products?" + queryString
     const pagination = { _page: page, _per_page: ITEM_PER_PAGE };
     dispatch(
-      fetchProductsByFilterAsync({ filterProduct, sortProduct, pagination })
+      fetchProductsByFilterAsync({
+        filterProduct,
+        sortProduct,
+        pagination,
+        admin: true,
+      })
     );
   }, [dispatch, filterProduct, sortProduct, page]);
 
@@ -451,16 +456,16 @@ const ProductGrid = ({ product }) => {
                         className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                       />
                     </div>
-                    <div className="mt-4 flex justify-between">
+                    <div className="mt-4 flex items-center justify-between">
                       <div>
-                        <h3 className="text-sm text-gray-700">
-                          <div href={product.href}>
+                        <h3 className="text-sm text-gray-700 max-w-40 truncate">
+                          <>
                             <span
                               aria-hidden="true"
                               className="absolute inset-0"
                             />
                             {product.title}
-                          </div>
+                          </>
                         </h3>
                         <p className="mt-1 flex items-center text-sm text-gray-500">
                           <StarIcon className="w-4 h-4 inline" />
@@ -480,14 +485,14 @@ const ProductGrid = ({ product }) => {
                         </p>
                       </div>
                     </div>
-                    {product.deleted && (
+                    {/* {product.deleted && (
                       <div className="text-red-400 text-sm my-1 font-medium">
                         <p>Product is deleted.</p>
                       </div>
-                    )}
-                    {product.stock <= 0 && (
-                      <div className="text-red-400 text-sm my-1 font-medium">
-                        <p>Out of stock</p>
+                    )} */}
+                    {(product.stock <= 0 || product.deleted) && (
+                      <div className="absolute -top-1 left-0 w-full text-red-500 tracking-wider my-1 font-medium text-center py-2 bg-black rounded-sm">
+                        <p>Out Of Stock</p>
                       </div>
                     )}
                   </div>

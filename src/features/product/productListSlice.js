@@ -23,14 +23,6 @@ export const initialState = {
 // will call the thunk with the `dispatch` function as the first argument. Async
 // code can then be executed and other actions can be dispatched. Thunks are
 // typically used to make async requests.
-export const fetchAllProductsAsync = createAsyncThunk(
-  "product/fetchAllProducts",
-  async () => {
-    const response = await fetchAllProducts();
-    // The value we return becomes the `fulfilled` action payload
-    return response.data;
-  }
-);
 
 export const createProductsAsync = createAsyncThunk(
   "product/createProduct",
@@ -52,12 +44,13 @@ export const updateProductsAsync = createAsyncThunk(
 
 export const fetchProductsByFilterAsync = createAsyncThunk(
   "product/fetchProductByFilter",
-  async ({ filterProduct, sortProduct, pagination }) => {
+  async ({ filterProduct, sortProduct, pagination, admin }) => {
     // console.log(filter, sort);
     const response = await fetchProductByFilter(
       filterProduct,
       sortProduct,
-      pagination
+      pagination,
+      admin
     );
     // The value we return becomes the `fulfilled` action payload
     return response.data;
@@ -111,13 +104,6 @@ export const productSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllProductsAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(fetchAllProductsAsync.fulfilled, (state, action) => {
-        state.status = "idle";
-        state.products = action.payload;
-      })
       .addCase(createProductsAsync.pending, (state) => {
         state.status = "loading";
       })
@@ -135,7 +121,7 @@ export const productSlice = createSlice({
       })
       .addCase(updateProductsAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        const index = state.products.data.findIndex(
+        const index = state.products.findIndex(
           (item) => item.id === action?.payload?.id
         );
         state.products[index] = action?.payload;

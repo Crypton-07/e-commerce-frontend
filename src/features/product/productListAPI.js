@@ -1,18 +1,5 @@
 // A mock function to mimic making an async request for data
-export function fetchAllProducts() {
-  return new Promise(async (resolve) => {
-    //TODO TO display the loader we are using set time out so that it fetch the product after 3 sec
-    const timer = setTimeout(async () => {
-      const response = await fetch("http://localhost:8085/products");
-      const data = await response.json();
-      resolve({ data });
-    }, 2000);
-    // console.log(data);
-    return () => {
-      clearTimeout(timer);
-    };
-  });
-}
+
 export function fetchProductsById(id) {
   return new Promise(async (resolve) => {
     //TODO TO display the loader we are using set time out so that it fetch the product after 3 sec
@@ -74,7 +61,7 @@ export function fetchAllBrands() {
   });
 }
 
-export function fetchProductByFilter(filter, sort, pagination) {
+export function fetchProductByFilter(filter, sort, pagination, admin) {
   //? filter = {"category": "smartphone"}
   //? sortby = {"sort": "price"}
   //? Pagination = {"page" : 1 , "limit": 10}
@@ -94,6 +81,9 @@ export function fetchProductByFilter(filter, sort, pagination) {
   }
   for (let key in pagination) {
     queryString += `${key}=${pagination[key]}&`;
+  }
+  if(admin){
+    queryString += `admin=true`
   }
   return new Promise(async (resolve) => {
     const response = await fetch(

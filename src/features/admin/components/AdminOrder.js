@@ -71,7 +71,7 @@ const AdminOrder = () => {
         <div className="w-full">
           <div className="bg-white shadow-md rounded my-6">
             <table className="min-w-max w-full table-auto">
-              <thead className="cursor-pointer table-fixed">
+              <thead className="cursor-pointer table-auto">
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                   <th
                     className="py-3 px-3 text-left flex items-center space-x-1.5"
@@ -117,7 +117,7 @@ const AdminOrder = () => {
                 </tr>
               </thead>
               <tbody className="text-gray-600 text-sm font-medium cursor-pointer">
-                {orders?.data?.map((order) => (
+                {orders?.map((order) => (
                   <tr
                     key={order?.id}
                     className="border-b border-gray-200 hover:bg-gray-100"
@@ -134,22 +134,24 @@ const AdminOrder = () => {
                         </span>
                       </div>
                     </td>
-                    <td className="py-3 px-3 text-left my-1 flex items-center justify-between">
-                      <div>
+                    <td className="py-3 px-3 text-left my-1 flex items-center gap-2">
+                      <>
                         {order.items.map((item, index) => (
                           <div key={index}>
                             <div className="flex items-center">
                               <div className="mr-2">
                                 <img
                                   className="w-6 h-6 rounded-full"
-                                  src={item[0]?.thumbnail}
+                                  src={item?.product?.thumbnail}
                                 />
                               </div>
-                              <span className="truncate">{item[0]?.title}</span>
+                              <span className="truncate">
+                                {item?.product?.title}
+                              </span>
                             </div>
                           </div>
                         ))}
-                      </div>
+                      </>
                       <span>#{order?.totalItems}</span>
                     </td>
                     <td className="py-3 px-3 text-center">
@@ -159,7 +161,7 @@ const AdminOrder = () => {
                     </td>
                     <td className="py-3 px-3 text-center">
                       <p>
-                        {order?.selectAddress?.address},
+                        {order?.selectAddress?.street},
                         {order?.selectAddress?.city},
                       </p>
                       <p>

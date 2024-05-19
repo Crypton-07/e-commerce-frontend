@@ -16,7 +16,7 @@ const ProductForm = () => {
   const brands = useSelector(selectAllBrands);
   const category = useSelector(selectAllCategories);
   const selectedProduct = useSelector(selectProductById);
-  console.log(selectedProduct);
+  // console.log(selectedProduct);
   const dispatch = useDispatch();
   const params = useParams();
   const [showModal, setShowModal] = useState(false);
@@ -31,8 +31,9 @@ const ProductForm = () => {
     formState: { errors },
   } = useForm();
 
+  console.log(errors);
   const handleDelete = () => {
-    const deleteProduct = { ...selectedProduct[0], deleted: true };
+    const deleteProduct = { ...selectedProduct, deleted: true };
     // deleteProduct[0].delete = true;
     dispatch(updateProductsAsync(deleteProduct));
     reset();
@@ -46,18 +47,18 @@ const ProductForm = () => {
 
   useEffect(() => {
     if (selectedProduct && params?.id) {
-      setValue("title", selectedProduct[0]?.title);
-      setValue("brand", selectedProduct[0]?.brand);
-      setValue("discountPercentage", selectedProduct[0]?.discountPercentage);
-      setValue("price", selectedProduct[0]?.price);
-      setValue("rating", selectedProduct[0]?.rating);
-      setValue("stock", selectedProduct[0]?.stock);
-      setValue("category", selectedProduct[0]?.category);
-      setValue("description", selectedProduct[0]?.description);
-      setValue("thumbnail", selectedProduct[0]?.thumbnail);
-      setValue("image1", selectedProduct[0]?.images[0]);
-      setValue("image2", selectedProduct[0]?.images[1]);
-      setValue("image3", selectedProduct[0]?.images[2]);
+      setValue("title", selectedProduct?.title);
+      setValue("brand", selectedProduct?.brand);
+      setValue("discountPercentage", selectedProduct?.discountPercentage);
+      setValue("price", selectedProduct?.price);
+      setValue("rating", selectedProduct?.rating);
+      setValue("stock", selectedProduct?.stock);
+      setValue("category", selectedProduct?.category);
+      setValue("description", selectedProduct?.description);
+      setValue("thumbnail", selectedProduct?.thumbnail);
+      setValue("image1", selectedProduct?.images[0]);
+      setValue("image2", selectedProduct?.images[1]);
+      setValue("image3", selectedProduct?.images[2]);
     }
   }, [selectedProduct, params?.id, setValue]);
 
@@ -84,8 +85,10 @@ const ProductForm = () => {
           //Todo: Data will be dispatch to an api where we add product.
           if (params?.id) {
             newProduct.id = params?.id;
-            newProduct.rating = selectedProduct[0].rating || 0;
+            newProduct.rating = selectedProduct.rating || 0;
+            console.log(newProduct);
             dispatch(updateProductsAsync(newProduct));
+            // reset();
           } else {
             dispatch(createProductsAsync(newProduct));
           }
@@ -102,7 +105,7 @@ const ProductForm = () => {
               what you share.
             </p>
             {/* Product Information */}
-            {selectedProduct[0]?.deleted && (
+            {selectedProduct?.deleted && (
               <p className="text-red-500 font-medium mt-2">
                 This product is deleted
               </p>
@@ -254,9 +257,9 @@ const ProductForm = () => {
                       id="stock"
                       type="number"
                       {...register("stock", {
-                        required: "Number of stock required",
-                        min: 1,
-                        max: 1000,
+                        required: "Number of stock is required",
+                        min: 0,
+                        max: 100,
                       })}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-in/set ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -418,7 +421,7 @@ const ProductForm = () => {
         </div>
       </form>
       <Modal
-        title={selectedProduct?.[0]?.title}
+        title={selectedProduct?.title}
         message={"Are you sure to delete this product ?"}
         dangerOption={"Delete"}
         cancelOption={"Cancel"}

@@ -122,8 +122,8 @@ export default function ProductDetails() {
             role="list"
             className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
           >
-            {product.breadcrumbs &&
-              product.breadcrumbs.map((breadcrumb) => (
+            {/* {product &&
+              product?.map((breadcrumb) => (
                 <li key={breadcrumb.id}>
                   <div className="flex items-center">
                     <a
@@ -144,7 +144,7 @@ export default function ProductDetails() {
                     </svg>
                   </div>
                 </li>
-              ))}
+              ))} */}
             <li className="text-sm">
               <a
                 href={product.href}

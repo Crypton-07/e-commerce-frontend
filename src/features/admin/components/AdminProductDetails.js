@@ -11,9 +11,10 @@ import {
 } from "../../product/productListSlice";
 import { useParams } from "react-router-dom";
 import { Bars } from "react-loader-spinner";
-import { addToCartAsync } from "../../cart/cartSlice";
+import { addToCartAsync, selectCartItems } from "../../cart/cartSlice";
 import { selectLoggedInUser } from "../../auth/authSlice";
 import { discountPrice } from "../../../constants/constant";
+import { Slide, toast } from "react-toastify";
 
 const colors = [
   { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
@@ -49,17 +50,51 @@ export default function AdminProductDetails() {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
   const product = useSelector(selectProductById);
+  console.log(product);
   const status = useSelector(selectStatus);
   const user = useSelector(selectLoggedInUser);
+  const cartItem = useSelector(selectCartItems);
   // console.log(product.images[0]);
   const dispatch = useDispatch();
   const params = useParams();
 
   const handleClick = (e) => {
     e.preventDefault();
-    const newItem = { ...product, quantity: 1, user: user?.id };
-    delete newItem["id"];
-    dispatch(addToCartAsync(newItem));
+    const index = cartItem.findIndex((item) => item.product.id === product.id);
+    const showToast = cartItem.some((item) => item.product.id === product.id);
+    if (index < 0) {
+      const newItem = {
+        product: product?.id,
+        quantity: 1,
+        user: user?.id,
+      };
+      dispatch(addToCartAsync(newItem));
+    } else {
+      toast.warn("Item is already added !", {
+        position: "top-center",
+        autoClose: 1200,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Slide,
+      });
+    }
+    if (!showToast) {
+      toast.success("Item is added to cart !", {
+        position: "top-center",
+        autoClose: 1200,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Slide,
+      });
+    }
   };
 
   useEffect(() => {
@@ -86,8 +121,8 @@ export default function AdminProductDetails() {
             role="list"
             className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
           >
-            {product &&
-              product.map((product) => (
+            {/* {product &&
+              product?.map((product) => (
                 <li key={product.id}>
                   <div className="flex items-center">
                     <a
@@ -108,14 +143,14 @@ export default function AdminProductDetails() {
                     </svg>
                   </div>
                 </li>
-              ))}
+              ))} */}
             <li className="text-sm">
               <a
                 href={product.href}
                 aria-current="page"
                 className="font-medium text-gray-500 hover:text-gray-600"
               >
-                {product[0].title}
+                {product.title}
               </a>
             </li>
           </ol>
@@ -124,39 +159,39 @@ export default function AdminProductDetails() {
         {/* Image gallery */}
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-            {product[0].images[0] && (
+            {product.images[0] && (
               <img
-                src={product[0].images[0]}
-                alt={product[0].title}
+                src={product.images[0]}
+                alt={product.title}
                 className="h-full w-full object-cover object-center"
               />
             )}
           </div>
           <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-            {product[0].images[1] && (
+            {product.images[1] && (
               <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                 <img
-                  src={product[0].images[1]}
-                  alt={product[0].title}
+                  src={product.images[1]}
+                  alt={product.title}
                   className="h-full w-full object-cover object-center"
                 />
               </div>
             )}
-            {product[0].images[2] && (
+            {product.images[2] && (
               <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                 <img
-                  src={product[0].images[2]}
-                  alt={product[0].title}
+                  src={product.images[2]}
+                  alt={product.title}
                   className="h-full w-full object-cover object-center"
                 />
               </div>
             )}
           </div>
-          {product[0].images[3] && (
+          {product.images[3] && (
             <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
               <img
-                src={product[0].images[3]}
-                alt={product[0].title}
+                src={product.images[3]}
+                alt={product.title}
                 className="h-full w-full object-cover object-center"
               />
             </div>
@@ -167,7 +202,7 @@ export default function AdminProductDetails() {
         <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
             <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-              {product[0].title}
+              {product.title}
             </h1>
           </div>
 
@@ -175,11 +210,11 @@ export default function AdminProductDetails() {
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
             <p className="text-3xl tracking-tight text-gray-900">
-              $ {discountPrice(product[0])}
+              $ {discountPrice(product)}
             </p>
             <p className="text-base mx-1 my-1 flex items-center space-x-1 line-through font-medium text-gray-400">
               <span>$</span>
-              <span>{product[0]?.price}</span>
+              <span>{product?.price}</span>
             </p>
 
             {/* Reviews */}
@@ -191,7 +226,7 @@ export default function AdminProductDetails() {
                     <StarIcon
                       key={rating}
                       className={classNames(
-                        product[0].rating > rating
+                        product.rating > rating
                           ? "text-gray-900"
                           : "text-gray-200",
                         "h-5 w-5 flex-shrink-0"
@@ -200,7 +235,7 @@ export default function AdminProductDetails() {
                     />
                   ))}
                 </div>
-                <p className="sr-only">{product[0].rating} out of 5 stars</p>
+                <p className="sr-only">{product.rating} out of 5 stars</p>
               </div>
             </div>
 
@@ -343,9 +378,7 @@ export default function AdminProductDetails() {
               <h3 className="sr-only">Description</h3>
 
               <div className="space-y-6">
-                <p className="text-base text-gray-900">
-                  {product[0].description}
-                </p>
+                <p className="text-base text-gray-900">{product.description}</p>
               </div>
             </div>
 
