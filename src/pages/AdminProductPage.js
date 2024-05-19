@@ -9,7 +9,7 @@ const AdminProductPage = () => {
       <Navbar>
         <AdminProductDetails />
       </Navbar>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

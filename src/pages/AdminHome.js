@@ -9,7 +9,7 @@ const AdminHome = () => {
       <Navbar>
         <AdminProductList></AdminProductList>
       </Navbar>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

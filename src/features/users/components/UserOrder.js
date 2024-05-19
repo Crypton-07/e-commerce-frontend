@@ -2,12 +2,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoggedInUser } from "../../auth/authSlice";
-import { fetchLoggedInOrdersAsync, selectUserOrders } from "../userSlice";
+import { fetchLoggedInOrdersAsync, selectUserInfo, selectUserOrders } from "../userSlice";
 import { discountPrice } from "../../../constants/constant";
 
 const UserOrder = () => {
   const dispatch = useDispatch();
-  const user = useSelector(selectLoggedInUser);
+  const userInfo = useSelector(selectUserInfo);
   const userOrders = useSelector(selectUserOrders);
   const orderStatusColor = (status) => {
     switch (status) {
@@ -24,8 +24,8 @@ const UserOrder = () => {
     }
   };
   useEffect(() => {
-    dispatch(fetchLoggedInOrdersAsync(user?.id));
-  }, [dispatch, user]);
+    dispatch(fetchLoggedInOrdersAsync(userInfo?.id));
+  }, [dispatch, userInfo]);
   return (
     <>
       {userOrders.map((order) => (
@@ -47,12 +47,12 @@ const UserOrder = () => {
             <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
               <div className="flow-root">
                 <ul role="list" className="-my-6 divide-y divide-gray-200">
-                  {order.items.map((product) => (
-                    <li key={product.id} className="flex py-6">
+                  {order.items.map((item) => (
+                    <li key={item.id} className="flex py-6">
                       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                         <img
-                          src={product[0].thumbnail}
-                          alt={product[0].category}
+                          src={item.product.thumbnail}
+                          alt={item.product.category}
                           className="h-full w-full object-cover object-center"
                         />
                       </div>
@@ -61,19 +61,21 @@ const UserOrder = () => {
                         <div>
                           <div className="flex justify-between text-base font-medium text-gray-900">
                             <h3>
-                              <a href={product[0]?.href}>{product[0].title}</a>
+                              <a href={item.product?.href}>
+                                {item.product.title}
+                              </a>
                             </h3>
                             <p className="ml-4 text-md flex flex-col gap-1">
                               <span>
-                                ${discountPrice(product[0]) * product.quantity}
+                                ${discountPrice(item.product) * item.quantity}
                               </span>
                               <span className="line-through text-sm text-gray-400">
-                                $ {product[0].price * product.quantity}
+                                $ {item.product.price * item.quantity}
                               </span>
                             </p>
                           </div>
                           <p className="mt-1 text-sm text-gray-500">
-                            {product[0].brand}
+                            {item.product.brand}
                           </p>
                         </div>
                         <div className="flex flex-1 items-end justify-between text-sm">
@@ -82,7 +84,7 @@ const UserOrder = () => {
                               htmlFor="quantity"
                               className="block text-sm font-medium leading-3 text-gray-900"
                             >
-                              Qty : {product?.quantity}
+                              Qty : {item?.quantity}
                             </label>
                           </div>
                         </div>
@@ -119,7 +121,7 @@ const UserOrder = () => {
 
                     <div className="hidden shrink-0 w-32 sm:flex sm:flex-col sm:items-start">
                       <p className="text-sm leading-6 text-gray-900">
-                        Street : {order?.selectAddress?.order?.selectAddress}
+                        Street : {order?.selectAddress?.street}
                       </p>
                       <p className="text-sm leading-6 text-gray-900">
                         City : {order?.selectAddress?.city}

@@ -12,7 +12,7 @@ const UserProfilePage = () => {
         </h1>
         <UserProfile />
       </Navbar>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

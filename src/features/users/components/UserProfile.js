@@ -6,8 +6,8 @@ import { useForm } from "react-hook-form";
 
 export function UserProfile() {
   const dispatch = useDispatch();
-  const user = useSelector(selectUserInfo);
-  // console.log(user);
+  const userInfo = useSelector(selectUserInfo);
+  // console.log(userInfo);
   const [selectedEdit, setSelectedEdit] = useState(-1);
   const [addAddress, setAddAddress] = useState(false);
 
@@ -21,18 +21,18 @@ export function UserProfile() {
   const handleEditForm = (index) => {
     setSelectedEdit(index);
     setAddAddress(false);
-    const address = user?.address[index];
+    const address = userInfo?.address[index];
     setValue("name", address.name);
     setValue("phone", address.phone);
     setValue("email", address.email);
-    setValue("address", address.address);
+    setValue("street", address.street);
     setValue("country", address.country);
     setValue("city", address.city);
     setValue("state", address.state);
     setValue("pincode", address.pincode);
   };
   const handleEdit = (editedAddress, index) => {
-    const newUser = { ...user, address: [...user.address] };
+    const newUser = { ...userInfo, address: [...userInfo.address] };
     // console.log(newUser);
     newUser.address.splice(index, 1, editedAddress);
     // console.log(newUser);
@@ -40,13 +40,13 @@ export function UserProfile() {
     setSelectedEdit(-1);
   };
   const handleAdd = (data) => {
-    const newUser = { ...user, address: [...user.address, data] };
+    const newUser = { ...userInfo, address: [...userInfo.address, data] };
     console.log(newUser);
     dispatch(updateUserAsync(newUser));
     setAddAddress(false);
   };
   const handleRemove = (e, index) => {
-    const newUser = { ...user, address: [...user.address] };
+    const newUser = { ...userInfo, address: [...userInfo.address] };
     // console.log(newUser);
     newUser.address.splice(index, 1);
     // console.log(newUser);
@@ -57,14 +57,14 @@ export function UserProfile() {
       <div className="lg:col-span-2">
         <div className=" bg-white shadow-lg">
           <h1 className="text-2xl font-medium px-8 py-2 tracking-wide">
-            User's Id : {user?.id}
+            User's Id : {userInfo?.id}
           </h1>
           <p className="text-md font-medium px-8 py-2 tracking-wide">
-            User's Email : {user.email}
+            User's Email : {userInfo.email}
           </p>
-          {user.role === "admin" && (
+          {userInfo.role === "admin" && (
             <p className="text-md font-medium px-8 py-2 tracking-wide capitalize">
-              Role : {user.role}
+              Role : {userInfo.role}
             </p>
           )}
 
@@ -80,7 +80,7 @@ export function UserProfile() {
                 type="submit"
                 className="flex justify-end rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-md hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 capitalize"
               >
-                Add address
+                New Address
               </button>
             </div>
             <div className="lg:col-span-3 shadow-lg">
@@ -204,7 +204,7 @@ export function UserProfile() {
 
                         <div className="col-span-full">
                           <label
-                            htmlFor="address"
+                            htmlFor="street"
                             className="block text-sm font-medium leading-6 text-gray-900"
                           >
                             Street address
@@ -212,16 +212,16 @@ export function UserProfile() {
                           <div className="mt-2">
                             <input
                               type="text"
-                              {...register("address", {
-                                required: "Please fill your correct address.",
+                              {...register("street", {
+                                required: "Please fill your correct street.",
                               })}
-                              id="address"
+                              id="street"
                               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                           </div>
-                          {errors.address && (
+                          {errors.street && (
                             <span className=" font-medium text-sm text-red-400">
-                              {errors.address.message}
+                              {errors.street.message}
                             </span>
                           )}
                         </div>
@@ -321,7 +321,7 @@ export function UserProfile() {
             </div>
             <div className="mt-2 space-y-6 border-2 border-solid border-gray-200 rounded-sm">
               <ul className="divide-y divide-gray-100">
-                {user?.address?.map((address, index) => (
+                {userInfo?.address?.map((address, index) => (
                   <div key={index}>
                     <div className="lg:col-span-3 shadow-lg">
                       {selectedEdit === index && (
@@ -448,7 +448,7 @@ export function UserProfile() {
 
                                 <div className="col-span-full">
                                   <label
-                                    htmlFor="address"
+                                    htmlFor="street"
                                     className="block text-sm font-medium leading-6 text-gray-900"
                                   >
                                     Street address
@@ -456,17 +456,17 @@ export function UserProfile() {
                                   <div className="mt-2">
                                     <input
                                       type="text"
-                                      {...register("address", {
+                                      {...register("street", {
                                         required:
-                                          "Please fill your correct address.",
+                                          "Please fill your correct street.",
                                       })}
-                                      id="address"
+                                      id="street"
                                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     />
                                   </div>
-                                  {errors.address && (
+                                  {errors.street && (
                                     <span className=" font-medium text-sm text-red-400">
-                                      {errors.address.message}
+                                      {errors.street.message}
                                     </span>
                                   )}
                                 </div>
@@ -583,7 +583,7 @@ export function UserProfile() {
                       <div className="hidden shrink-0 w-52 sm:flex sm:flex-col sm:items-start">
                         <p className="flex justify-between space-x-1 items-center text-sm leading-6 text-gray-900">
                           <span className="w-16">Street : </span>
-                          <span className="text-center">{address.address}</span>
+                          <span className="text-center">{address.street}</span>
                         </p>
                         <p className="flex justify-between space-x-1 items-center text-sm leading-6 text-gray-900">
                           <span className="w-16">City : </span>

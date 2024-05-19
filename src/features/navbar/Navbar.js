@@ -174,7 +174,7 @@ const Navbar = ({ children }) => {
                   )}
                 </div>
                 <div className="border-t border-gray-700 pb-3 pt-4">
-                  <div className="flex items-center px-5">
+                  <div className="flex items-center justify-between px-5">
                     <div className="flex-shrink-0">
                       <img
                         className="h-10 w-10 rounded-full"
@@ -198,16 +198,16 @@ const Navbar = ({ children }) => {
                         <span className="absolute -inset-1.5" />
                         <span className="sr-only">View notifications</span>
                         <ShoppingCartIcon
-                          className="h-6 w-6"
+                          className="h-7 w-7"
                           aria-hidden="true"
                         />
                       </button>
+                      {items.length > 0 && (
+                        <span className="absolute inline-flex items-center rounded-md bg-red-50 mb-6 -ml-3 -mt-2 px-1.5 py-1 text-xs font-bold text-red-700 ring-1 ring-inset ring-red-600/10">
+                          {items?.length}
+                        </span>
+                      )}
                     </Link>
-                    {items.length > 0 && (
-                      <span className="inline-flex items-center rounded-md bg-red-50 mb-6 z-10 -ml-3 px-2 py-1 text-xs font-bold text-red-700 ring-1 ring-inset ring-red-600/10">
-                        {items?.length}
-                      </span>
-                    )}
                   </div>
                   <div className="mt-3 space-y-1 px-2 cursor-pointer">
                     {userNavigation.map((item) => (

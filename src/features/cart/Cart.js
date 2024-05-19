@@ -8,7 +8,7 @@ import { Link, Navigate } from "react-router-dom";
 import { deleteItemAsync, selectCartItems, updateItemAsync } from "./cartSlice";
 import { discountPrice } from "../../constants/constant";
 import Modal from "../common/Modal";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { Bounce, Slide, ToastContainer, toast } from "react-toastify";
 
 export function Cart() {
   const items = useSelector(selectCartItems);
@@ -17,27 +17,27 @@ export function Cart() {
   const [showModal, setShowModal] = useState(null);
   const totalAmount = items.reduce(
     (amount, item) =>
-      Math.round(discountPrice(item[0]) * item.quantity) + amount,
+      Math.round(discountPrice(item.product) * item.quantity) + amount,
     0
   );
   const totalItems = items.reduce((total, item) => item.quantity + total, 0);
 
-  const handleQuantity = (e, product) => {
+  const handleQuantity = (e, itemId) => {
     // console.log(e.target.value);
-    dispatch(updateItemAsync({ ...product, quantity: +e.target.value }));
+    dispatch(updateItemAsync({ id: itemId, quantity: +e.target.value }));
   };
   const handleRemove = (id) => {
     dispatch(deleteItemAsync(id));
-    toast.success("Item is deleted !", {
-      position: "top-right",
-      autoClose: 2000,
+    toast.success("Item has removed from cart !", {
+      position: "top-center",
+      autoClose: 1200,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
       draggable: true,
       progress: undefined,
       theme: "light",
-      transition: Bounce,
+      transition: Slide,
     });
   };
 
@@ -50,12 +50,12 @@ export function Cart() {
         <div className="border-t border-gray-200 px-4 sm:px-6">
           <div className="flow-root">
             <ul role="list" className="divide-y divide-gray-200">
-              {items.map((product) => (
-                <li key={product.id} className="flex py-6">
+              {items.map((item) => (
+                <li key={item.id} className="flex py-6">
                   <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                     <img
-                      src={product[0].thumbnail}
-                      alt={product[0].category}
+                      src={item.product.thumbnail}
+                      alt={item.product.category}
                       className="h-full w-full object-cover object-center"
                     />
                   </div>
@@ -64,19 +64,19 @@ export function Cart() {
                     <div>
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <h3>
-                          <a href={product[0]?.href}>{product[0].title}</a>
+                          <a href={item.product?.href}>{item.product.title}</a>
                         </h3>
                         <p className="ml-4 flex flex-col gap-1">
                           <span>
-                            $ {discountPrice(product[0]) * product.quantity}
+                            $ {discountPrice(item.product) * item.quantity}
                           </span>
                           <span className="line-through text-gray-400">
-                            {`$ ${product[0].price * product.quantity}`}
+                            {`$ ${item.product.price * item.quantity}`}
                           </span>
                         </p>
                       </div>
                       <p className="mt-1 text-sm text-gray-500">
-                        {product[0].brand}
+                        {item.product.brand}
                       </p>
                     </div>
                     <div className="flex flex-1 items-end justify-between text-sm">
@@ -88,9 +88,9 @@ export function Cart() {
                           Qty
                         </label>
                         <select
-                          onChange={(e) => handleQuantity(e, product)}
+                          onChange={(e) => handleQuantity(e, item.id)}
                           className="bg-white-50 w-[50px] ml-5 border border-gray-300 text-gray-900 text-sm rounded-md block p-1"
-                          value={product.quantity}
+                          value={item.quantity}
                         >
                           <option value="1">1</option>
                           <option value="2">2</option>
@@ -102,20 +102,20 @@ export function Cart() {
 
                       <div className="flex">
                         <Modal
-                          title={`Delete ${product[0].title} from cart ?`}
+                          title={`Delete ${item.product.title} from cart ?`}
                           message={
                             "Are you sure to remove this item from your cart ?"
                           }
                           dangerOption={"Delete"}
                           cancelOption={"Cancel"}
-                          dangerAction={() => handleRemove(product.id)}
+                          dangerAction={() => handleRemove(item.id)}
                           cancelAction={() => setShowModal(-1)}
-                          showModal={showModal === product.id}
+                          showModal={showModal === item.id}
                         />
                         <button
                           type="button"
                           className="font-medium text-indigo-600 hover:text-indigo-500"
-                          onClick={(e) => setShowModal(product.id)}
+                          onClick={(e) => setShowModal(item.id)}
                         >
                           Remove
                         </button>

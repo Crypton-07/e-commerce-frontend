@@ -4,7 +4,6 @@ import {
   ExclamationTriangleIcon,
   InformationCircleIcon,
 } from "@heroicons/react/24/outline";
-import { Bounce, ToastContainer, toast } from "react-toastify";
 
 export default function Modal({
   title,

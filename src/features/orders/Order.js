@@ -6,30 +6,30 @@ import {
   selectCartItems,
   updateItemAsync,
 } from "../cart/cartSlice";
-import { selectLoggedInUser, updateUserAsync } from "../auth/authSlice";
 import { createOrderAsync, selectCurrentOrder } from "./orderSlice";
 import { discountPrice } from "../../constants/constant";
 import { useForm } from "react-hook-form";
 import { Link, Navigate } from "react-router-dom";
+import { selectUserInfo, updateUserAsync } from "../users/userSlice";
 
 const Order = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
   const items = useSelector(selectCartItems);
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectUserInfo);
   const currentOrder = useSelector(selectCurrentOrder);
   const [selectAddress, setSelectAddress] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("cash");
   const totalAmount = items.reduce(
     (amount, item) =>
-      Math.round(discountPrice(item[0]) * item.quantity) + amount,
+      Math.round(discountPrice(item?.product) * item.quantity) + amount,
     0
   );
   const totalItems = items.reduce((total, item) => item.quantity + total, 0);
 
-  const handleQuantity = (e, product) => {
+  const handleQuantity = (e, itemId) => {
     // console.log(e.target.value);
-    dispatch(updateItemAsync({ ...product, quantity: +e.target.value }));
+    dispatch(updateItemAsync({ id: itemId, quantity: +e.target.value }));
   };
   const handleRemove = (e, id) => {
     dispatch(deleteItemAsync(id));
@@ -53,7 +53,7 @@ const Order = () => {
       const orderDate = new Date().toLocaleDateString("en-In");
       const orderTime = new Date().getTime();
       const order = {
-        user,
+        user: user.id,
         items,
         totalAmount,
         totalItems,
@@ -206,16 +206,16 @@ const Order = () => {
                       <div className="mt-2">
                         <input
                           type="text"
-                          {...register("address", {
+                          {...register("street", {
                             required: "Please fill your correct address.",
                           })}
-                          id="address"
+                          id="street"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                       </div>
-                      {errors.address && (
+                      {errors.street && (
                         <span className=" font-medium text-sm text-red-400">
-                          {errors.address.message}
+                          {errors.street.message}
                         </span>
                       )}
                     </div>
@@ -319,7 +319,7 @@ const Order = () => {
                     Kindly choose the address.
                   </p>
                   <div className="mt-2 space-y-6 border-2 border-solid border-gray-200 rounded-sm">
-                    <ul role="list" className="divide-y divide-gray-100">
+                    <ul className="divide-y divide-gray-100">
                       {user?.address?.map((address, i) => (
                         <li
                           key={i}
@@ -347,7 +347,7 @@ const Order = () => {
 
                           <div className="hidden shrink-0 w-32 sm:flex sm:flex-col sm:items-start">
                             <p className="text-sm leading-6 text-gray-900">
-                              Street : {address.address}
+                              Street : {address.street}
                             </p>
                             <p className="text-sm leading-6 text-gray-900">
                               City : {address.city}
@@ -421,13 +421,13 @@ const Order = () => {
               </h1>
               <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                 <div className="flow-root">
-                  <ul role="list" className="-my-6 divide-y divide-gray-200">
-                    {items.map((product) => (
-                      <li key={product.id} className="flex py-6">
+                  <ul className="-my-6 divide-y divide-gray-200">
+                    {items.map((item) => (
+                      <li key={item.id} className="flex py-6">
                         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                           <img
-                            src={product[0].thumbnail}
-                            alt={product[0].category}
+                            src={item.product.thumbnail}
+                            alt={item.product.category}
                             className="h-full w-full object-cover object-center"
                           />
                         </div>
@@ -436,22 +436,21 @@ const Order = () => {
                           <div>
                             <div className="flex justify-between text-base font-medium text-gray-900">
                               <h3>
-                                <a href={product[0]?.href}>
-                                  {product[0].title}
+                                <a href={item.product?.href}>
+                                  {item.product.title}
                                 </a>
                               </h3>
                               <p className="ml-4 flex flex-col gap-1">
                                 <span>
-                                  $
-                                  {discountPrice(product[0]) * product.quantity}
+                                  ${discountPrice(item.product) * item.quantity}
                                 </span>
                                 <span className="line-through text-gray-400">
-                                  $ {product[0].price * product.quantity}
+                                  $ {item.product.price * item.quantity}
                                 </span>
                               </p>
                             </div>
                             <p className="mt-1 text-sm text-gray-500">
-                              {product[0].brand}
+                              {item.product.brand}
                             </p>
                           </div>
                           <div className="flex flex-1 items-end justify-between text-sm">
@@ -463,9 +462,9 @@ const Order = () => {
                                 Qty
                               </label>
                               <select
-                                onChange={(e) => handleQuantity(e, product)}
+                                onChange={(e) => handleQuantity(e, item.id)}
                                 className="bg-white-50 w-[50px] ml-5 border border-gray-300 text-gray-900 text-sm rounded-md block p-1"
-                                value={product.quantity}
+                                value={item.quantity}
                               >
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -479,7 +478,7 @@ const Order = () => {
                               <button
                                 type="button"
                                 className="font-medium text-indigo-600 hover:text-indigo-500"
-                                onClick={(e) => handleRemove(e, product.id)}
+                                onClick={(e) => handleRemove(e, item.id)}
                               >
                                 Remove
                               </button>

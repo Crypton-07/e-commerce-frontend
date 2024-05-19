@@ -5,6 +5,7 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { resetCartAsync } from "../features/cart/cartSlice";
 import { selectLoggedInUser } from "../features/auth/authSlice";
 import { resetOrder } from "../features/orders/orderSlice";
+import { Slide, ToastContainer, toast } from "react-toastify";
 
 const OrderSuccess = () => {
   const params = useParams();
@@ -13,10 +14,23 @@ const OrderSuccess = () => {
   useEffect(() => {
     dispatch(resetCartAsync(user?.id));
     dispatch(resetOrder());
-  }, [dispatch, user]);
+    params.id &&
+      toast.success("Order placed successfully !", {
+        position: "top-center",
+        autoClose: 1200,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Slide,
+      });
+  }, [dispatch, user, params.id]);
   return (
     <>
       {!params.id && <Navigate to={"/"} replace={true} />}
+      <ToastContainer />
       <main className="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">
         <div className="text-center">
           <p className="text-base font-semibold text-indigo-600">
