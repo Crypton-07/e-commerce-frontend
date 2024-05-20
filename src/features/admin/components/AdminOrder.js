@@ -16,6 +16,7 @@ import {
   PencilIcon,
 } from "@heroicons/react/24/outline";
 import { Pagination } from "../../common/Pagination";
+import { Slide, ToastContainer, toast } from "react-toastify";
 
 const AdminOrder = () => {
   const [page, setPage] = useState(1);
@@ -33,6 +34,17 @@ const AdminOrder = () => {
     const updatedOrder = { ...order, status: e.target.value };
     dispatch(updateOrderAsync(updatedOrder));
     setEditableOrderId(null);
+    toast.info(`Status updated to ${e.target.value}!`, {
+      position: "top-center",
+      autoClose: 1200,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Slide,
+    });
   };
 
   const handlePagination = (page) => {
@@ -41,7 +53,7 @@ const AdminOrder = () => {
 
   //? Sorting Order
   const handleSort = (option) => {
-    const sortOrder = { _sort: option?.sort };
+    const sortOrder = { _sort: option?.sort, _order: option?.order };
     setSort(sortOrder);
   };
 
@@ -67,56 +79,58 @@ const AdminOrder = () => {
   }, [dispatch, page, sort, editableOrderId]);
   return (
     <div className="overflow-x-auto">
+      <ToastContainer />
       <div className="min-w-screen flex items-center justify-center bg-gray-100 overflow-hidden">
         <div className="w-full">
           <div className="bg-white shadow-md rounded my-6">
             <table className="min-w-max w-full table-auto">
               <thead className="cursor-pointer table-auto">
-                <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                <tr className="bg-gray-200 text-gray-600 uppercase text-xs leading-normal">
                   <th
-                    className="py-3 px-3 text-left flex items-center space-x-1.5"
+                    className="py-3 px-4 text-left flex items-center space-x-1.5"
                     onClick={() =>
-                      handleSort({ sort: sort?._sort === "id" ? "-id" : "id" })
+                      handleSort({
+                        sort: "_id",
+                        order: sort._order === "asc" ? "desc" : "asc",
+                      })
                     }
                   >
                     <span>Order</span>
                     <span>
-                      {sort?._sort === "id" ? (
+                      {sort?._order === "asc" ? (
                         <ArrowUpIcon className="w-4 h-4" />
                       ) : (
                         <ArrowDownIcon className="w-4 h-4" />
                       )}
                     </span>
                   </th>
-                  <th className="py-3 px-3 text-left">User</th>
-                  <th className="py-3 px-3 text-left">Items</th>
+                  <th className="py-3 px-4 text-left">User</th>
+                  <th className="py-3 px-4 text-left">Items</th>
                   <th
-                    className="py-3 px-3 text-center flex items-center justify-center space-x-1.5"
+                    className="py-3 px-4 text-left flex items-center space-x-1.5"
                     onClick={() =>
                       handleSort({
-                        sort:
-                          sort?._sort === "totalAmount"
-                            ? "-totalAmount"
-                            : "totalAmount",
+                        sort: "totalAmount",
+                        order: sort?._order === "asc" ? "desc" : "asc",
                       })
                     }
                   >
                     <span>Amount</span>
                     <span>
-                      {sort?._sort === "totalAmount" ? (
+                      {sort?._order === "asc" ? (
                         <ArrowUpIcon className="w-4 h-4" />
                       ) : (
                         <ArrowDownIcon className="w-4 h-4" />
                       )}
                     </span>
                   </th>
-                  <th className="py-3 px-3 text-center">Address</th>
-                  <th className="py-3 px-3 text-center">Contact</th>
-                  <th className="py-3 px-3 text-center">Status</th>
+                  <th className="py-3 px-4 text-left ml-1">Address</th>
+                  <th className="py-3 px-4 text-left">Contact</th>
+                  <th className="py-3 px-4 text-left">Status</th>
                   <th className="py-3 px-3 text-center">Actions</th>
                 </tr>
               </thead>
-              <tbody className="text-gray-600 text-sm font-medium cursor-pointer">
+              <tbody className="text-gray-600 text-xs font-medium cursor-pointer">
                 {orders?.map((order) => (
                   <tr
                     key={order?.id}
@@ -138,14 +152,14 @@ const AdminOrder = () => {
                       <>
                         {order.items.map((item, index) => (
                           <div key={index}>
-                            <div className="flex items-center">
+                            <div className="flex items-center justify-start">
                               <div className="mr-2">
                                 <img
-                                  className="w-6 h-6 rounded-full"
+                                  className="w-5 h-5 rounded-full"
                                   src={item?.product?.thumbnail}
                                 />
                               </div>
-                              <span className="truncate">
+                              <span className="truncate text-left">
                                 {item?.product?.title}
                               </span>
                             </div>
@@ -154,12 +168,12 @@ const AdminOrder = () => {
                       </>
                       <span>#{order?.totalItems}</span>
                     </td>
-                    <td className="py-3 px-3 text-center">
-                      <p className="flex items-center justify-center">
+                    <td className="py-3 px-3 text-left">
+                      <p className="flex items-center mx-1">
                         ${order?.totalAmount}
                       </p>
                     </td>
-                    <td className="py-3 px-3 text-center">
+                    <td className="py-3 px-3 text-left">
                       <p>
                         {order?.selectAddress?.street},
                         {order?.selectAddress?.city},
@@ -169,12 +183,12 @@ const AdminOrder = () => {
                         {order?.selectAddress?.pincode}
                       </p>
                     </td>
-                    <td className="py-3 px-3 text-center">
-                      <div className="flex items-center justify-center">
+                    <td className="py-3 px-3 text-left">
+                      <div className="flex items-center">
                         <p>{order?.selectAddress?.phone}</p>
                       </div>
                     </td>
-                    <td className="py-3 px-3 text-center">
+                    <td className="py-3 px-3 text-left">
                       {order.id === editableOrderId ? (
                         <select
                           className="block py-1 px-2 w-full text-left text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
@@ -196,7 +210,7 @@ const AdminOrder = () => {
                         </p>
                       )}
                     </td>
-                    <td className="py-3 px-3 text-center">
+                    <td className="py-3 px-3 text-left">
                       <div className="flex item-center justify-center space-x-4">
                         <div className="w-5 transform hover:text-indigo-600 hover:scale-125 transition-all ease-in-out duration-200">
                           <EyeIcon onClick={() => handleShow(order)} />

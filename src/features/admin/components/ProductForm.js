@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useAlert } from "react-alert";
 import {
   clearSelectedProduct,
   createProductsAsync,
@@ -12,6 +13,7 @@ import {
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import Modal from "../../common/Modal";
+import { Slide, ToastContainer, toast } from "react-toastify";
 const ProductForm = () => {
   const brands = useSelector(selectAllBrands);
   const category = useSelector(selectAllCategories);
@@ -21,6 +23,8 @@ const ProductForm = () => {
   const params = useParams();
   const [showModal, setShowModal] = useState(false);
   const [modalOption, setModalOption] = useState(false);
+  const alert = useAlert();
+
   // console.log(selectedProduct);
   console.log(params.id);
   const {
@@ -30,8 +34,6 @@ const ProductForm = () => {
     setValue,
     formState: { errors },
   } = useForm();
-
-  console.log(errors);
   const handleDelete = () => {
     const deleteProduct = { ...selectedProduct, deleted: true };
     // deleteProduct[0].delete = true;
@@ -64,6 +66,7 @@ const ProductForm = () => {
 
   return (
     <>
+      <ToastContainer />
       <form
         noValidate
         onSubmit={handleSubmit((data) => {
@@ -88,9 +91,31 @@ const ProductForm = () => {
             newProduct.rating = selectedProduct.rating || 0;
             console.log(newProduct);
             dispatch(updateProductsAsync(newProduct));
+            toast.success("Product Updated!", {
+              position: "top-center",
+              autoClose: 1200,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: false,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Slide,
+            });
             // reset();
           } else {
             dispatch(createProductsAsync(newProduct));
+            toast.success("Product Created!", {
+              position: "top-center",
+              autoClose: 1200,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: false,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Slide,
+            });
           }
           reset();
         })}
@@ -105,7 +130,7 @@ const ProductForm = () => {
               what you share.
             </p>
             {/* Product Information */}
-            {selectedProduct?.deleted && (
+            {selectedProduct && selectedProduct?.deleted && (
               <p className="text-red-500 font-medium mt-2">
                 This product is deleted
               </p>
@@ -420,15 +445,17 @@ const ProductForm = () => {
           </button>
         </div>
       </form>
-      <Modal
-        title={selectedProduct?.title}
-        message={"Are you sure to delete this product ?"}
-        dangerOption={"Delete"}
-        cancelOption={"Cancel"}
-        dangerAction={handleDelete}
-        cancelAction={() => setShowModal(false)}
-        showModal={showModal}
-      />
+      {selectedProduct && (
+        <Modal
+          title={selectedProduct?.title}
+          message={"Are you sure to delete this product ?"}
+          dangerOption={"Delete"}
+          cancelOption={"Cancel"}
+          dangerAction={handleDelete}
+          cancelAction={() => setShowModal(false)}
+          showModal={showModal}
+        />
+      )}
     </>
   );
 };
