@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import {
-  checkUserAsync,
+  loginUserAsync,
   selectLoggedInUser,
   userErrorInfo,
 } from "../authSlice";
@@ -48,7 +48,7 @@ const Login = () => {
             noValidate
             onSubmit={handleSubmit((data) => {
               dispatch(
-                checkUserAsync({
+                loginUserAsync({
                   email: data?.email,
                   password: data?.password,
                   // address: [],
@@ -123,7 +123,7 @@ const Login = () => {
                 )}
                 {authError && (
                   <span className=" font-medium text-sm text-red-400">
-                    {authError?.message}
+                    {authError?.message || authError}
                   </span>
                 )}
               </div>

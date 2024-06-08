@@ -492,7 +492,13 @@ const ProductGrid = ({ product }) => {
                     )} */}
                     {(product.stock <= 0 || product.deleted) && (
                       <div className="absolute -top-1 left-0 w-full text-red-500 tracking-wider my-1 font-medium text-center py-2 bg-black rounded-sm">
-                        <p>Out Of Stock</p>
+                        {product.deleted ? (
+                          <p>Product no longer exist</p>
+                        ) : product.stock <= 0 ? (
+                          <p>Out Of Stock</p>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     )}
                   </div>

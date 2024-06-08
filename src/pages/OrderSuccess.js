@@ -1,18 +1,18 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { resetCartAsync } from "../features/cart/cartSlice";
-import { selectLoggedInUser } from "../features/auth/authSlice";
+// import { selectLoggedInUser } from "../features/auth/authSlice";
 import { resetOrder } from "../features/orders/orderSlice";
 import { Slide, ToastContainer, toast } from "react-toastify";
 
 const OrderSuccess = () => {
   const params = useParams();
   const dispatch = useDispatch();
-  const user = useSelector(selectLoggedInUser);
+  // const user = useSelector(selectLoggedInUser);
   useEffect(() => {
-    dispatch(resetCartAsync(user?.id));
+    dispatch(resetCartAsync());
     dispatch(resetOrder());
     params.id &&
       toast.success("Order placed successfully !", {
@@ -26,7 +26,7 @@ const OrderSuccess = () => {
         theme: "light",
         transition: Slide,
       });
-  }, [dispatch, user, params.id]);
+  }, [dispatch, params.id]);
   return (
     <>
       {!params.id && <Navigate to={"/"} replace={true} />}

@@ -12,7 +12,7 @@ import {
 import { useParams } from "react-router-dom";
 import { Bars } from "react-loader-spinner";
 import { addToCartAsync, selectCartItems } from "../../cart/cartSlice";
-import { selectLoggedInUser } from "../../auth/authSlice";
+// import { selectLoggedInUser } from "../../auth/authSlice";
 import { discountPrice } from "../../../constants/constant";
 import { Slide, toast } from "react-toastify";
 
@@ -52,7 +52,7 @@ export default function AdminProductDetails() {
   const product = useSelector(selectProductById);
   console.log(product);
   const status = useSelector(selectStatus);
-  const user = useSelector(selectLoggedInUser);
+  // const user = useSelector(selectLoggedInUser);
   const cartItem = useSelector(selectCartItems);
   // console.log(product.images[0]);
   const dispatch = useDispatch();
@@ -66,7 +66,6 @@ export default function AdminProductDetails() {
       const newItem = {
         product: product?.id,
         quantity: 1,
-        user: user?.id,
       };
       dispatch(addToCartAsync(newItem));
     } else {

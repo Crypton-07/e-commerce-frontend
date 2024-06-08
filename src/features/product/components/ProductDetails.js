@@ -12,9 +12,9 @@ import {
 import { useParams } from "react-router-dom";
 import { Bars } from "react-loader-spinner";
 import { addToCartAsync, selectCartItems } from "../../cart/cartSlice";
-import { selectLoggedInUser } from "../../auth/authSlice";
+// import { selectLoggedInUser } from "../../auth/authSlice";
 import { discountPrice } from "../../../constants/constant";
-import { Bounce, Slide, ToastContainer, toast } from "react-toastify";
+import { Slide, ToastContainer, toast } from "react-toastify";
 // import { useAlert } from "react-alert";
 
 const colors = [
@@ -53,7 +53,7 @@ export default function ProductDetails() {
   const cartItem = useSelector(selectCartItems);
   const product = useSelector(selectProductById);
   const status = useSelector(selectStatus);
-  const user = useSelector(selectLoggedInUser);
+  // const user = useSelector(selectLoggedInUser);
   const dispatch = useDispatch();
   const params = useParams();
   // const alert = useAlert();
@@ -66,7 +66,6 @@ export default function ProductDetails() {
       const newItem = {
         product: product?.id,
         quantity: 1,
-        user: user?.id,
       };
       dispatch(addToCartAsync(newItem));
     } else {

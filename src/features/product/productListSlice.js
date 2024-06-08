@@ -113,7 +113,7 @@ export const productSlice = createSlice({
           state.status = "idle";
           // console.log(action?.payload);
           // state.products = [{ ...state.products }, action?.payload];
-          state.products.data.push(action?.payload);
+          state.products.push(action?.payload);
         }
       )
       .addCase(updateProductsAsync.pending, (state) => {

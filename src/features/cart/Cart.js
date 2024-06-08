@@ -5,16 +5,22 @@
 import { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
-import { deleteItemAsync, selectCartItems, updateItemAsync } from "./cartSlice";
+import {
+  cartLoaded,
+  deleteItemAsync,
+  selectCartItems,
+  updateItemAsync,
+} from "./cartSlice";
 import { discountPrice } from "../../constants/constant";
 import Modal from "../common/Modal";
 import { Bounce, Slide, ToastContainer, toast } from "react-toastify";
 
 export function Cart() {
-  const items = useSelector(selectCartItems);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
   const [showModal, setShowModal] = useState(null);
+  const items = useSelector(selectCartItems);
+  const cartItemsLoaded = useSelector(cartLoaded);
   const totalAmount = items.reduce(
     (amount, item) =>
       Math.round(discountPrice(item.product) * item.quantity) + amount,
@@ -43,7 +49,7 @@ export function Cart() {
 
   return (
     <>
-      {!items.length && <Navigate to={"/"} replace={true} />}
+      {!items.length && cartItemsLoaded && <Navigate to={"/"} replace={true} />}
       <ToastContainer />
       <div className=" bg-white shadow-lg">
         <h1 className="text-3xl font-bold px-8 py-4 tracking-wide">Cart</h1>

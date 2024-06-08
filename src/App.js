@@ -9,7 +9,11 @@ import CheckoutPage from "./pages/CheckoutPage";
 import ProductPage from "./pages/ProductPage";
 import Protected from "./features/auth/components/Protected";
 import { useDispatch, useSelector } from "react-redux";
-import { selectLoggedInUser } from "./features/auth/authSlice";
+import {
+  checkAuthAsync,
+  checkedUser,
+  selectLoggedInUser,
+} from "./features/auth/authSlice";
 import { fetchItemsByUserIdAsync } from "./features/cart/cartSlice";
 import PageNotFound from "./pages/404";
 import OrderSuccess from "./pages/OrderSuccess";
@@ -160,17 +164,23 @@ const appRouter = createBrowserRouter([
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
+  const checkUser = useSelector(checkedUser);
   useEffect(() => {
     if (user) {
-      dispatch(fetchItemsByUserIdAsync(user?.id));
-      dispatch(fetchLoggedInUserAsync(user?.id));
+      dispatch(fetchItemsByUserIdAsync());
+      dispatch(fetchLoggedInUserAsync());
     }
   }, [dispatch, user]);
+  useEffect(() => {
+    dispatch(checkAuthAsync());
+  }, [dispatch]);
   return (
     <div className="App overflow-y-scroll scrollbar-hide">
-      <AlertProvider template={AlertTemplate} {...options}>
-        <RouterProvider router={appRouter} />
-      </AlertProvider>
+      {checkUser && (
+        <AlertProvider template={AlertTemplate} {...options}>
+          <RouterProvider router={appRouter} />
+        </AlertProvider>
+      )}
     </div>
   );
 }

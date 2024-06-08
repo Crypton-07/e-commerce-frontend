@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useAlert } from "react-alert";
+// import { useAlert } from "react-alert";
 import {
   clearSelectedProduct,
   createProductsAsync,
@@ -22,8 +22,8 @@ const ProductForm = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const [showModal, setShowModal] = useState(false);
-  const [modalOption, setModalOption] = useState(false);
-  const alert = useAlert();
+  // const [modalOption, setModalOption] = useState(false);
+  // const alert = useAlert();
 
   // console.log(selectedProduct);
   console.log(params.id);
@@ -35,10 +35,36 @@ const ProductForm = () => {
     formState: { errors },
   } = useForm();
   const handleDelete = () => {
-    const deleteProduct = { ...selectedProduct, deleted: true };
-    // deleteProduct[0].delete = true;
-    dispatch(updateProductsAsync(deleteProduct));
-    reset();
+    if (selectedProduct.deleted) {
+      toast.error("Product is already deleted !", {
+        position: "top-center",
+        autoClose: 1300,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Slide,
+      });
+      setShowModal(false);
+    } else {
+      const deleteProduct = { ...selectedProduct, deleted: true };
+      dispatch(updateProductsAsync(deleteProduct));
+      reset();
+      toast.success("Product Deleted!", {
+        position: "top-center",
+        autoClose: 1300,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Slide,
+      });
+      setShowModal(false);
+    }
   };
 
   useEffect(() => {
@@ -93,7 +119,7 @@ const ProductForm = () => {
             dispatch(updateProductsAsync(newProduct));
             toast.success("Product Updated!", {
               position: "top-center",
-              autoClose: 1200,
+              autoClose: 1300,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: false,
@@ -107,7 +133,7 @@ const ProductForm = () => {
             dispatch(createProductsAsync(newProduct));
             toast.success("Product Created!", {
               position: "top-center",
-              autoClose: 1200,
+              autoClose: 1300,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: false,
