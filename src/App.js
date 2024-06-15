@@ -129,7 +129,7 @@ const appRouter = createBrowserRouter([
     ),
   },
   {
-    path: "/order",
+    path: "/myOrder",
     element: (
       <Protected>
         <UserOrderPage />
