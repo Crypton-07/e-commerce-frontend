@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./App.css";
+// import "./App.css";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
@@ -29,6 +29,7 @@ import AdminProductForm from "./pages/AdminProductForm";
 import AdminOrderPage from "./pages/AdminOrderPage";
 import { Provider as AlertProvider, positions } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
+import StripeCheckout from "./pages/StripeCheckout";
 
 const options = {
   // you can also just use 'bottom center'
@@ -132,6 +133,14 @@ const appRouter = createBrowserRouter([
     element: (
       <Protected>
         <UserOrderPage />
+      </Protected>
+    ),
+  },
+  {
+    path: "/stripe-checkout/",
+    element: (
+      <Protected>
+        <StripeCheckout />
       </Protected>
     ),
   },

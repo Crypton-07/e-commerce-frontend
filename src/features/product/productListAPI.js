@@ -4,20 +4,19 @@ export function fetchProductsById(id) {
   return new Promise(async (resolve) => {
     //TODO TO display the loader we are using set time out so that it fetch the product after 3 sec
     const timer = setTimeout(async () => {
-      const response = await fetch("http://localhost:8085/products/" + id);
+      const response = await fetch("/products/" + id);
       const data = await response.json();
       resolve({ data });
     }, 1000);
     return () => {
       clearTimeout(timer);
     };
-    // console.log(data);
   });
 }
 
 export function createProduct(newProduct) {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8085/products/", {
+    const response = await fetch("/products/", {
       method: "POST",
       body: JSON.stringify(newProduct),
       headers: { "content-type": "application/json" },
@@ -29,14 +28,11 @@ export function createProduct(newProduct) {
 
 export function updateProduct(update) {
   return new Promise(async (resolve) => {
-    const response = await fetch(
-      "http://localhost:8085/products/" + update.id,
-      {
-        method: "PATCH",
-        body: JSON.stringify(update),
-        headers: { "content-type": "application/json" },
-      }
-    );
+    const response = await fetch("/products/" + update.id, {
+      method: "PATCH",
+      body: JSON.stringify(update),
+      headers: { "content-type": "application/json" },
+    });
     const data = await response.json();
     resolve({ data });
   });
@@ -44,7 +40,7 @@ export function updateProduct(update) {
 
 export function fetchAllCategories() {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8085/categories");
+    const response = await fetch("/categories");
     const data = await response.json();
     resolve({ data });
 
@@ -53,7 +49,7 @@ export function fetchAllCategories() {
 }
 export function fetchAllBrands() {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8085/brands");
+    const response = await fetch("/brands");
     const data = await response.json();
     resolve({ data });
 
@@ -82,37 +78,13 @@ export function fetchProductByFilter(filter, sort, pagination, admin) {
   for (let key in pagination) {
     queryString += `${key}=${pagination[key]}&`;
   }
-  if(admin){
-    queryString += `admin=true`
+  if (admin) {
+    queryString += `admin=true`;
   }
   return new Promise(async (resolve) => {
-    const response = await fetch(
-      "http://localhost:8085/products?" + queryString
-    );
+    const response = await fetch("/products?" + queryString);
     const data = await response.json();
     const totalItems = await response.headers.get("X-Total-Count");
     resolve({ data: { product: data, totalItems: totalItems } });
   });
 }
-
-// export function fetchProductBySorting(sort) {
-//   //? sortby = {"sort": "price"}
-//   //TODO : Will have to make dynamic sorting, currently works for individual high to low or low to high
-//   let queryString = "";
-//   switch (sort.order) {
-//     case "desc":
-//       queryString += `${"_sort"}=-${sort.sort}&`;
-//       break;
-//     default:
-//       queryString += `${"_sort"}=${sort.sort}&`;
-//       break;
-//   }
-//   return new Promise(async (resolve) => {
-//     const response = await fetch(
-//       "http://localhost:8080/products?" + queryString
-//     );
-//     const data = await response.json();
-//     resolve({ data });
-//     // console.log(data);
-//   });
-// }

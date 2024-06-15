@@ -69,8 +69,11 @@ const Order = () => {
   return (
     <>
       {!items.length && <Navigate to={"/"} replace={true} />}
-      {currentOrder && (
+      {currentOrder && currentOrder.paymentMethod === "cash" && (
         <Navigate to={`/orderSuccess/${currentOrder?.id}`} replace={true} />
+      )}
+      {currentOrder && currentOrder.paymentMethod === "card" && (
+        <Navigate to={`/stripe-checkout/`} replace={true} />
       )}
       <div className="mx-auto max-w-7xl mt-2 px-4 py-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-x-4 gap-y-2 lg:grid-cols-5">

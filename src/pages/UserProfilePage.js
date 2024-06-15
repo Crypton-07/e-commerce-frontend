@@ -1,7 +1,7 @@
 import React from "react";
 import { UserProfile } from "../features/users/components/UserProfile";
 import Navbar from "../features/navbar/Navbar";
-import Footer from "../features/common/Footer";
+// import Footer from "../features/common/Footer";
 
 const UserProfilePage = () => {
   return (

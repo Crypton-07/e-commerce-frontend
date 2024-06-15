@@ -1,7 +1,7 @@
 // A mock function to mimic making an async request for data
 export function addToCart(item) {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8085/cart", {
+    const response = await fetch("/cart", {
       method: "POST",
       body: JSON.stringify(item),
       headers: { "content-type": "application/json" },
@@ -13,7 +13,7 @@ export function addToCart(item) {
 
 export function fetchItemsByUserID() {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8085/cart");
+    const response = await fetch("/cart");
     const data = await response.json();
     resolve({ data });
   });
@@ -21,7 +21,7 @@ export function fetchItemsByUserID() {
 
 export function updateItem(update) {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8085/cart/" + update.id, {
+    const response = await fetch("/cart/" + update.id, {
       method: "PATCH",
       body: JSON.stringify(update),
       headers: { "content-type": "application/json" },
@@ -33,7 +33,7 @@ export function updateItem(update) {
 export function deleteItem(itemId) {
   console.log(itemId);
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8085/cart/" + itemId, {
+    const response = await fetch("/cart/" + itemId, {
       method: "DELETE",
       headers: { "content-type": "application/json" },
     });

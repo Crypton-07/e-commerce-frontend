@@ -3,7 +3,6 @@ import {
   createProduct,
   fetchAllBrands,
   fetchAllCategories,
-  fetchAllProducts,
   fetchProductByFilter,
   fetchProductsById,
   updateProduct,
